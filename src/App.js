@@ -10,7 +10,7 @@ import AuthWrapper from "./components/AuthWrapper";
 function App() {
   return (
     <AuthWrapper>
-      <Router>
+      {/* <Router>
         <ToastContainer position="top-center" />
         <Navbar />
         <Sidebar />
@@ -36,7 +36,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
-      </Router>
+      </Router> */}
     </AuthWrapper>
   );
 }
