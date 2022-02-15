@@ -4,7 +4,7 @@ import {AiOutlineSearch, AiOutlineShopping} from 'react-icons/ai';
 import {FiLogOut, FiMenu} from 'react-icons/fi';
 import {FaUserAlt} from 'react-icons/fa';
 import '../styles/navbars.css';
-import {NavbarData} from './utils/NavbarData';
+import {NavbarData} from './../utils/NavbarData';
 import {Link as LinkScroll} from 'react-scroll';
 import {useActionContext} from '../context/action_context'
 import {useUserContext} from '../context/user_context';
