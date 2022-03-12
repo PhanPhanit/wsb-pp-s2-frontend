@@ -2,6 +2,9 @@ import React, {useContext, useReducer, useEffect} from 'react';
 import axios from 'axios';
 import {useCategoryContext} from './category_context';
 import reducer from '../reducers/product_reducer';
+import {
+    getAllProduct as getAllProductUrl
+} from '../UrlEndPoint';
 
 import {
     NEW_ARRIVAL_SET_LOADING,
@@ -61,7 +64,7 @@ const ProductProvider = ({children}) => {
     const fetchProductNewArrive = async () => {
         dispatch({type: NEW_ARRIVAL_SET_LOADING, payload: true})
         try {
-            const {data:{product: new_arrival}} = await axios.get('/api/v1/product?limit=10&sort=-createdAt');
+            const {data:{product: new_arrival}} = await axios.get(`${getAllProductUrl}?limit=10&sort=-createdAt`);
             dispatch({type: NEW_ARRIVAL_SET_ERROR, payload: false});
             dispatch({type: NEW_ARRIVAL_SET_PRODUCT, payload: new_arrival});
         } catch (error) {
@@ -90,11 +93,11 @@ const ProductProvider = ({children}) => {
             dispatch({type: SET_SINGLE_PRODUCT_ERROR, payload: false});
             dispatch({type: SET_SINGLE_PRODUCT_LOADING, payload: false})
             // fetch suggestion product and people looking
-            fetchSuggestionProduct(`/api/v1/product?limit=15&category=${product.category}&sort=-sold`);
-            fetchPeopleLookingProduct(`/api/v1/product?limit=15&category=${product.category}&sort=-views`);
+            fetchSuggestionProduct(`${getAllProductUrl}?limit=15&category=${product.category}&sort=-sold`);
+            fetchPeopleLookingProduct(`${getAllProductUrl}?limit=15&category=${product.category}&sort=-views`);
             // increase view
             const productId = product._id;
-            await axios.get(`/api/v1/product/increase-view/${productId}`);
+            await axios.get(`${getAllProductUrl}/increase-view/${productId}`);
         } catch (error) {
             dispatch({type: SET_SINGLE_PRODUCT_ERROR, payload: true});
             dispatch({type: SET_SINGLE_PRODUCT_LOADING, payload: false})
@@ -133,9 +136,9 @@ const ProductProvider = ({children}) => {
 
         let url = "";
         if(category_id) {
-            url = `/api/v1/product?limit=20&page=${state.all_favorit_book.current_page}&category=${category_id}&sort=-createdAt`;
+            url = `${getAllProductUrl}?limit=20&page=${state.all_favorit_book.current_page}&category=${category_id}&sort=-createdAt`;
         }else {
-            url = `/api/v1/product?limit=20&page=${state.all_favorit_book.current_page}&sort=-createdAt`;
+            url = `${getAllProductUrl}?limit=20&page=${state.all_favorit_book.current_page}&sort=-createdAt`;
         }
 
         fetchProductAllFavorBook(url);

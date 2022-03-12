@@ -3,6 +3,9 @@ import reducer from '../reducers/cart_reducer';
 import {useUserContext} from './user_context';
 import axios from 'axios';
 import {
+    getAllOrderItem as getAllOrderItemUrl
+} from '../UrlEndPoint';
+import {
     CART_LOADING,
     SET_CART_ITEM,
     COUNT_CART_TOTALS,
@@ -40,7 +43,7 @@ const CartProvider = ({children}) => {
     const addToCart = async ({_id: productId, image}) => {
         dispatch({type: CART_LOADING, payload: true});
         try {
-            const {data: {orderItem}} = await axios.post('/api/v1/order-item', {product: productId, image: image[0], quantity: 1});
+            const {data: {orderItem}} = await axios.post(getAllOrderItemUrl, {product: productId, image: image[0], quantity: 1});
             dispatch({type: ADD_TO_CART, payload: orderItem});
         } catch (error) {
             console.log(error);
@@ -50,7 +53,7 @@ const CartProvider = ({children}) => {
 
     const removeItem = async (id) => {
         try {
-            await axios.delete(`/api/v1/order-item/${id}`);
+            await axios.delete(`${getAllOrderItemUrl}/${id}`);
             dispatch({type: REMOVE_CART_ITEM, payload: id});
         } catch (error) {
             console.log(error);
@@ -59,7 +62,7 @@ const CartProvider = ({children}) => {
 
     const clearCart = async () => {
         try {
-            await axios.delete('/api/v1/order-item');
+            await axios.delete(getAllOrderItemUrl);
             dispatch({type: CLEAR_CART});
         } catch (error) {
             console.log(error);
@@ -79,7 +82,7 @@ const CartProvider = ({children}) => {
                     return;
                 }
             }
-            await axios.patch(`/api/v1/order-item/${id}`, {quantity: newAmount});
+            await axios.patch(`${getAllOrderItemUrl}/${id}`, {quantity: newAmount});
             dispatch({type: TOGGLE_CART_ITEM_AMOUNT, payload: {id, value}});
         } catch (error) {
             console.log(error);
@@ -88,7 +91,7 @@ const CartProvider = ({children}) => {
 
     useEffect(()=>{
         if(myUser){
-            fetchCartItem("/api/v1/order-item");
+            fetchCartItem(getAllOrderItemUrl);
         }
     }, [myUser]);
 

@@ -8,6 +8,9 @@ import {
     ViewBookSlide,
     CustomerRate
 } from '../components';
+import {
+    getAllProduct as getAllProductUrl
+} from '../UrlEndPoint';
 
 function ViewBook() {
     const {id: productId} = useParams();
@@ -25,7 +28,7 @@ function ViewBook() {
         window.scroll({
             top: 0
           });
-        fetchSingleProduct(`/api/v1/product/${productId}`);
+        fetchSingleProduct(`${getAllProductUrl}/${productId}`);
     }, [productId]);
     
     if(loading){

@@ -8,6 +8,11 @@ import '../styles/signup-singin.css';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import {useUserContext} from '../context/user_context';
+import {
+    facebookLogin as facebookLoginUrl,
+    googleLogin as googleLoginUrl,
+    register as registerUrl
+} from '../UrlEndPoint';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -32,7 +37,7 @@ const Signup = () => {
         setBtnDisable(true);
         setLoading(true);
         try {
-            const {data} = await axios.post('/api/v1/auth/register', {...inputValue, name: inputValue.fullName});
+            const {data} = await axios.post(registerUrl, {...inputValue, name: inputValue.fullName});
             saveUser(data.tokenUser);
             toast.success("Registration succeed.");
             navigate('/');
@@ -53,10 +58,10 @@ const Signup = () => {
 
 
     const googleLogin = async () => {
-        window.open("https://wsb-server.herokuapp.com/api/v1/auth/google", "_self");
+        window.open(googleLoginUrl, "_self");
     }
     const facebookLogin = async () => {
-        window.open("https://wsb-server.herokuapp.com/api/v1/auth/facebook", "_self");
+        window.open(facebookLoginUrl, "_self");
     }
 
 

@@ -7,7 +7,8 @@ const AuthWrapper = ({children}) => {
     if(loading){
         return (
             <div className="app-loading">
-                <img src={LoadingPhoto} alt="Loading Page" />
+                {/* <img src={LoadingPhoto} alt="Loading Page" /> */}
+                <div class="app-lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
         )
     }

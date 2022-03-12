@@ -9,7 +9,14 @@ import {
     sortName
 } from '../utils/Tools';
 function CartPage() {
-    const {cart, subtotal, shipping_fee, removeItem, clearCart, toggleAmount} = useCartContext();
+    const {
+        cart,
+        subtotal,
+        shipping_fee,
+        removeItem,
+        clearCart,
+        toggleAmount
+    } = useCartContext();
     return (
         <section className="cart-section">
             <div className="wrapper-global">

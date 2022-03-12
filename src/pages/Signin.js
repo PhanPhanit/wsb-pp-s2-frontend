@@ -9,6 +9,11 @@ import {toast} from 'react-toastify';
 import axios from 'axios';
 import {useUserContext} from '../context/user_context';
 import {useNavigate} from 'react-router-dom';
+import {
+    facebookLogin as facebookLoginUrl,
+    googleLogin as googleLoginUrl,
+    login as loginUrl
+} from '../UrlEndPoint';
 
 const Signin = () => {
     const {saveUser, removeUser} = useUserContext();
@@ -28,7 +33,7 @@ const Signin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const {data} = await axios.post('/api/v1/auth/login', inputValue);
+            const {data} = await axios.post(loginUrl, inputValue);
             saveUser(data.user);
             setInputValue({email: '', password: ''});
             toast.success("Sign in successfully!")
@@ -43,10 +48,10 @@ const Signin = () => {
         setLoading(false);
     }
     const googleLogin = async () => {
-        window.open("https://wsb-server.herokuapp.com/api/v1/auth/google", "_self");
+        window.open(googleLoginUrl, "_self");
     }
     const facebookLogin = async () => {
-        window.open("https://wsb-server.herokuapp.com/api/v1/auth/facebook", "_self");
+        window.open(facebookLoginUrl, "_self");
     }
     return (
         <section id="signin-signup-section" className="font-poppin">
