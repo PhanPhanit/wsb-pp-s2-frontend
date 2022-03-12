@@ -1,6 +1,9 @@
 import React, {useContext, useReducer, useEffect} from 'react';
 import axios from 'axios';
 import reducer from '../reducers/slide_banner_reducer';
+import {
+    getAllSlide as getAllSlideUrl
+} from '../UrlEndPoint';
 
 import {
     SET_SLIDE_BANNER_LOADING,
@@ -20,6 +23,7 @@ const SlideBannerProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initailState);
 
     const fetchSlideBanner = async (url) => {
+        console.log(url);
         dispatch({type: SET_SLIDE_BANNER_LOADING, payload: true});
         try {
             const {data: {slide}} = await axios.get(url);
@@ -32,7 +36,7 @@ const SlideBannerProvider = ({children}) => {
     }
 
     useEffect(()=>{
-        const url = "/api/v1/slide?limit=5&sort=-createdAt";
+        const url = `${getAllSlideUrl}?limit=5&sort=-createdAt`;
         fetchSlideBanner(url)
     }, []);
 

@@ -2,6 +2,9 @@ import React, {useContext, useReducer, useEffect} from 'react';
 import reducer from '../reducers/category_reducer';
 import axios from 'axios';
 import {
+    getAllCategory as getAllCategoryUrl
+} from '../UrlEndPoint';
+import {
     FETCH_CATEGORY,
     CATEGORY_LOADING,
     CATEGORY_COMPLETE_LOADING,
@@ -23,7 +26,7 @@ const CategoryProvider = ({children}) => {
     const fetchCategory = async () => {
         dispatch({type: CATEGORY_LOADING});
         try {
-            const {data:{category}} = await axios.get("/api/v1/category");
+            const {data:{category}} = await axios.get(getAllCategoryUrl);
             dispatch({type: FETCH_CATEGORY, payload: category});
         } catch (error) {
             console.log(error);
