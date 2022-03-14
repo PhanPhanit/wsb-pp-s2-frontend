@@ -3,22 +3,27 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import {useUserContext} from '../context/user_context';
 import {toast} from 'react-toastify';
-import LoadingPhoto from '../images/loading-page.gif';
+import {
+    responseCookie
+} from '../UrlEndPoint';
 
 const SendToken = () => {
     const navigate = useNavigate();
     const query = useQuery();
-    const {saveUser, removeUser} = useUserContext();
+    const {saveUser, removeUser, setLoading} = useUserContext();
 
 
     const handleSendToken = async (token) => {
+        setLoading(true);
         try {
-            const {data} = await axios.post('/api/v1/response-cookie', {token});
-            saveUser(data.tokenUser)
+            const {data} = await axios.post(responseCookie, {token});
+            saveUser(data.user)
             navigate("/");
+            setLoading(false);
             toast.success("Sign in successfully!")
         } catch (error) {
             removeUser();
+            setLoading(false);
             navigate("/signin");
             toast.error("Error something went wrong.");
         }
@@ -30,9 +35,7 @@ const SendToken = () => {
     }, [])
 
     return (
-        <div className="app-loading">
-            <img src={LoadingPhoto} alt="Loading Page" />
-        </div>
+        <h1>Loading...</h1>
     )
 }
 

@@ -15,8 +15,14 @@ function CartPage() {
         shipping_fee,
         removeItem,
         clearCart,
-        toggleAmount
+        toggleAmount,
+        cart_loading
     } = useCartContext();
+
+    React.useEffect(()=>{
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <section className="cart-section">
             <div className="wrapper-global">
@@ -32,50 +38,62 @@ function CartPage() {
                     <hr />
                     <div className="item-container">
                         {
-                            cart.map((item)=>{
-                                const {
-                                    _id: cartId,
-                                    image,
-                                    product: {
-                                        name,
-                                        discount,
-                                        price,
-                                        author
-                                    },
-                                    quantity
-                                } = item;
-                                return (
-                                    <div key={cartId} className="single-item">
-                                        <div className="p-item">
-                                            <div className="img-box">
-                                                <img src={image} alt="Yuri Herrera" />
+                            cart_loading?(
+                                <div className="cart-wrapper">
+                                    <div class="cart-lds-ring"><div></div><div></div><div></div><div></div></div>
+                                </div>
+                            ):
+                            cart.length===0?(
+                                <div className="cart-wrapper">
+                                    <h2>No item</h2>
+                                </div>
+                            ):
+                            (
+                                cart.map((item)=>{
+                                    const {
+                                        _id: cartId,
+                                        image,
+                                        product: {
+                                            name,
+                                            discount,
+                                            price,
+                                            author
+                                        },
+                                        quantity
+                                    } = item;
+                                    return (
+                                        <div key={cartId} className="single-item">
+                                            <div className="p-item">
+                                                <div className="img-box">
+                                                    <img src={image} alt="Yuri Herrera" />
+                                                </div>
+                                                <div className="info">
+                                                    <h4>{sortName(name, 50)}</h4>
+                                                    <span className='author'>{author}</span>
+                                                    <span className='price'>{formatMoney(price - discount)}</span>
+                                                    <span className='discount'>{discount===0?"":formatMoney(discount)}</span>
+                                                </div>
                                             </div>
-                                            <div className="info">
-                                                <h4>{sortName(name, 50)}</h4>
-                                                <span className='author'>{author}</span>
-                                                <span className='price'>{formatMoney(price - discount)}</span>
-                                                <span className='discount'>{discount===0?"":formatMoney(discount)}</span>
+                                            <span className="price">{formatMoney(price - discount)}</span>
+                                            <div className="quantity-change">
+                                                <button type="button" onClick={()=>toggleAmount(cartId, "decrease", quantity)}>
+                                                    <AiOutlineMinus className="icon" />
+                                                </button>
+                                                <span>{quantity}</span>
+                                                <button type="button" onClick={()=>toggleAmount(cartId, "increase", quantity)}>
+                                                    <AiOutlinePlus className="icon" />
+                                                </button>
+                                            </div>
+                                            <span className="sub-total">{formatMoney((price-discount)*quantity)}</span>
+                                            <div className="remove-item">
+                                                <button type="button" onClick={()=>removeItem(cartId)}>
+                                                    <FaTrashAlt className="icon-remove" />
+                                                </button>
                                             </div>
                                         </div>
-                                        <span className="price">{formatMoney(price - discount)}</span>
-                                        <div className="quantity-change">
-                                            <button type="button" onClick={()=>toggleAmount(cartId, "decrease", quantity)}>
-                                                <AiOutlineMinus className="icon" />
-                                            </button>
-                                            <span>{quantity}</span>
-                                            <button type="button" onClick={()=>toggleAmount(cartId, "increase", quantity)}>
-                                                <AiOutlinePlus className="icon" />
-                                            </button>
-                                        </div>
-                                        <span className="sub-total">{formatMoney((price-discount)*quantity)}</span>
-                                        <div className="remove-item">
-                                            <button type="button" onClick={()=>removeItem(cartId)}>
-                                                <FaTrashAlt className="icon-remove" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                )
-                            })
+                                    )
+                                })
+                            )
                         }
                         {/* <div className="single-item">
                             <div className="p-item">

@@ -14,16 +14,19 @@ import {toast} from 'react-toastify';
 
 function Navbar() {
     const navigate = useNavigate();
-    const {myUser, removeUser} = useUserContext();
+    const {myUser, removeUser, setLoading} = useUserContext();
     const {openSidebar, accountSettingClick, historyClick} = useActionContext();
     const {total_items} = useCartContext();
     const handleLogout = async () => {
+        setLoading(true);
         try {
-            await axios.get('/api/v1/auth/logout');
+            await axios.delete('/api/v1/auth/logout');
             removeUser();
             navigate("/");
+            setLoading(false);
             toast.success("Logout successfully.");
         } catch (error) {
+            setLoading(false);
             toast.success("Logout error.");
         }
     }

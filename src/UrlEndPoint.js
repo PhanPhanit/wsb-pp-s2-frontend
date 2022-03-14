@@ -1,4 +1,6 @@
 const BASE_URL = "/api/v1";
+// Respone cookie
+export const responseCookie = `${BASE_URL}/wsb-res-cookie`;
 // Login with social media
 export const facebookLogin = `http://localhost:5000${BASE_URL}/auth/facebook`;
 export const googleLogin = `http://localhost:5000${BASE_URL}/auth/google`;
@@ -17,3 +19,5 @@ export const getAllCategory = `${BASE_URL}/wsb-cate`;
 export const getAllProduct = `${BASE_URL}/wsb-pro`;
 // Order Item
 export const getAllOrderItem = `${BASE_URL}/wsb-od-item`;
+// Create Payment Intent
+export const createPaymentIntent = `${BASE_URL}/wsb-ch-out/create-payment-intent`;
