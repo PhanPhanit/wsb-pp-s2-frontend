@@ -6,6 +6,7 @@ import ViewBook from './ViewBook';
 import Error from './Error';
 import Signup from './Signup';
 import Signin from './Signin';
+import SuccessCheckout from './SuccessCheckout';
 
 export {
     CartPage,
@@ -15,5 +16,6 @@ export {
     ViewBook,
     Error,
     Signup,
-    Signin
+    Signin,
+    SuccessCheckout,
 }

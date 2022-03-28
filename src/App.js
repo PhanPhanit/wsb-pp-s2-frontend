@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { CartPage, Category, Home, Profile, ViewBook, Error, Signup, Signin } from "./pages";
+import { CartPage, Category, Home, Profile, ViewBook, Error, Signup, Signin, SuccessCheckout } from "./pages";
 import { Navbar, Sidebar, Footer, Feedback, Checkout, SendToken, PrivateRoute } from "./components";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +29,11 @@ function App() {
           <Route path="/checkout" element={
             <PrivateRoute>
               <Checkout />
+            </PrivateRoute>
+          } />
+          <Route path="/success-checkout" element={
+            <PrivateRoute>
+              <SuccessCheckout />
             </PrivateRoute>
           } />
           <Route path="/viewbook/:id" element={<ViewBook />} />

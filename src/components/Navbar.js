@@ -1,16 +1,18 @@
 import React from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import {AiOutlineSearch, AiOutlineShopping} from 'react-icons/ai';
-import {FiLogOut, FiMenu} from 'react-icons/fi';
-import {FaUserAlt} from 'react-icons/fa';
+import {FiMenu} from 'react-icons/fi';
+import {FaUserAlt, FaSignOutAlt} from 'react-icons/fa';
 import '../styles/navbars.css';
 import {NavbarData} from './../utils/NavbarData';
+import {dropdownList} from './../utils/Dropdown';
 import {Link as LinkScroll} from 'react-scroll';
 import {useActionContext} from '../context/action_context'
 import {useUserContext} from '../context/user_context';
 import {useCartContext} from '../context/cart_context';
 import axios from 'axios';
 import {toast} from 'react-toastify';
+import Logo from './Logo';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -30,116 +32,101 @@ function Navbar() {
             toast.success("Logout error.");
         }
     }
+    const handleNavMenu = (link) => {
+        if(link==="/"){
+            navigate("/");
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        if(link==='footer'){
+            window.scrollTo({ 
+                top: document.documentElement.scrollHeight, 
+                behavior: 'smooth'
+            }); 
+        }
+    }
     return (
         <header>
-            {/* Header */}
-            <div className="wrapper-global wrapper-menu font-khmer font-poppin">
-                <div className="left-menu">
-                    <div className="logo">
-                        <Link to="/"><font>W</font><font>s</font><font>book</font> </Link>
-                    </div>
-                    {/* form search */}
-                    <form className="frm-search">
-                        <div>
-                            <input type="text" placeholder="Explore" />
+            <div className="nav-center-wrapper">
+                <div className="nav-center">
+                    <div className="nav-logo-search">
+                        <Logo />
+                        <form className="frm-search">
+                            <input type="text" placeholder="Explore..." />
                             <button type="submit">
                                 <AiOutlineSearch className="icon" />
                             </button>
-                        </div>
-                    </form>
-                </div>
-
-                {/* Center menu */}
-
-                <nav className="center-menu">
-                    <ul>
+                        </form>
+                    </div>
+                    <ul className="nav-text-center">
                         {
-                            NavbarData.map((menu)=>{
-                                const {id, title, link} = menu;
-                                if(link==='dropbox'){
-                                    return (
-                                        <li key={id} className="m-hover">
-                                            <a>{title}</a>
-                                            <div className="dropbox">
-                                                <div className="arrow-top"></div>
-                                                <span>English</span>
-                                                <span>Khmer</span>
-                                            </div>
-                                        </li>
-                                    );
-                                }
-                                if(link==='home'){
-                                    return (
-                                        <li key={id}>
-                                            <Link to="/">
-                                                {title}
-                                            </Link>
-                                        </li>
-                                    );
-                                }
-                                return (
-                                    <li key={id}>
-                                        <LinkScroll to={link} spy={true} smooth={true} duration={1000}>
-                                            {title}
-                                        </LinkScroll>
-                                    </li>
-                                );
+                            NavbarData.map(item=>{
+                                return <li onClick={()=>handleNavMenu(item.link)}>{item.title}</li>
                             })
                         }
                     </ul>
-                </nav>
-
-                {/* right menu */}
-
-                <div className="right-menu">
-                    <ul>
-                        <li className="li-user">
-                            {
-                                myUser? (
-                                    <div className="user-icon">
-                                        <FaUserAlt />
-
-                                        {/* user hover */}
-
-                                        <div className="user-hower">
-                                            <div className="arrow-top"></div>
-                                            <div className="header">
-                                                <h4>{myUser.name}</h4>
-                                                <span>{myUser.email}</span>
-                                            </div>
-                                            <div className="body">
-                                                <Link className="link" to="/profile" onClick={accountSettingClick}>My Profile</Link>
-                                                <Link className="link" to="/profile" onClick={historyClick}>History</Link>
-                                            </div>
-                                            <div className="footer">
-                                                <span className="logout-txt" onClick={handleLogout}>Logout</span>
-                                                <FiLogOut onClick={handleLogout} className="logout-txt" />
-                                            </div>
-                                        </div>
-
-                                        {/* end user hover */}
-
-                                    </div>
-                                ):(
-                                    <Link to="/signin" className="btn-signin">Sign In</Link>
-                                )
-                            }
-                        </li>
+                    <div className="nav-user-cart">
                         {
-                            myUser && (
-                                <li className="li-cart">
-                                    <Link className="link-cart" to="/cart">
-                                        <AiOutlineShopping />
-                                        <span>{total_items}</span>
-                                    </Link>
-                                </li>
+                            myUser?(
+                                <div className="user-logo">
+                                    <div className="user">
+                                        <FaUserAlt className="icon" />
+                                    </div>
+                                    <div className="dropdown">
+                                        <div className="header">
+                                            <span>Phan Phanit</span>
+                                        </div>
+                                        <ul className="body">
+                                            {
+                                            dropdownList.map((item)=>{
+                                                    return (
+                                                    <Link to={item.link}>
+                                                        <li key={item.id}>
+                                                            {item.icon} <span>{item.title}</span>
+                                                        </li>
+                                                    </Link>
+                                                );
+                                            }) 
+                                            }
+                                        </ul>
+                                        <div className="footer">
+                                            <div className="footer-wrapper" onClick={()=>handleLogout()}><FaSignOutAlt className="icon" /> <span>Logout</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ):(
+                                <button className="nav-signin">
+                                    <Link to="/signin">Sign in</Link>
+                                </button>
                             )
                         }
-                        <li className="li-menu-button">
-                            <FiMenu className="btn-menu" onClick={openSidebar} />
-                        </li>
-                    </ul>
+
+
+                        <div className="cart">
+                            {
+                                myUser?(
+                                    <Link to="/cart">
+                                        <AiOutlineShopping className="icon" />
+                                        <span className="total-item">{total_items}</span>
+                                    </Link>
+                                ):(
+                                    <Link to="/signin">
+                                        <AiOutlineShopping className="icon" />
+                                        <span className="total-item">0</span>
+                                    </Link>
+                                )
+                            }
+                        </div>
+                        <div className="menu-icon">
+                            <FiMenu className="icon" onClick={()=>openSidebar()} />
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div className="nav-language">
+                <span>KH</span>
             </div>
         </header>
     )

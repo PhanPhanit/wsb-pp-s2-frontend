@@ -52,3 +52,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
 export const CLEAR_CART = "CLEAR_CART";
 export const TOGGLE_CART_ITEM_AMOUNT = "TOGGLE_CART_ITEM_AMOUNT";
+
+// order
+export const SET_PAYMENT_INTENT = "SET_PAYMENT_INTENT";
+export const SET_ORDER_SUCCESS = "SET_ORDER_SUCCESS";

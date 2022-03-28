@@ -21,3 +21,5 @@ export const getAllProduct = `${BASE_URL}/wsb-pro`;
 export const getAllOrderItem = `${BASE_URL}/wsb-od-item`;
 // Create Payment Intent
 export const createPaymentIntent = `${BASE_URL}/wsb-ch-out/create-payment-intent`;
+// Order
+export const createOrder = `${BASE_URL}/wsb-od`;

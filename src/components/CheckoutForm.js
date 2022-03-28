@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
+import {useCartContext} from '../context/cart_context';
+import {formatMoney} from '../utils/Tools';
 import {
   PaymentElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import { useOrderContext } from "../context/order_context";
 
 export default function CheckoutForm() {
+  const {subtotal, shipping_fee, cart, clearCart} = useCartContext();
+  const {createOrder, paymentIntent} = useOrderContext();
   const stripe = useStripe();
   const elements = useElements();
-
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(cart);
 
   useEffect(() => {
     if (!stripe) {
@@ -45,11 +51,43 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const redirectUrl = `${window.location.origin}/success-checkout`;
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
+    }
+
+    const handleRedirectUrl = (url) => {
+      const orderItem = cart.map((item)=>{
+        const {
+          quantity,
+          image,
+          product: {
+            id: productId,
+            name,
+            discount,
+            price
+          },
+        } = item;
+        return {
+          name,
+          image,
+          price,
+          discount,
+          quantity,
+          product: productId
+        }
+      });
+
+      const data = {
+        delivery: shipping_fee,
+        paymentIntent: paymentIntent,
+        orderItem
+      };
+      createOrder(data);
+      clearCart();
+      return url;
     }
 
     setIsLoading(true);
@@ -58,7 +96,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: handleRedirectUrl(redirectUrl),
       },
     });
 
@@ -79,7 +117,7 @@ export default function CheckoutForm() {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <span className="total-price">Your total is 1000$</span>
+      <span className="total-price">Your total is {formatMoney(subtotal+shipping_fee)}</span>
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}

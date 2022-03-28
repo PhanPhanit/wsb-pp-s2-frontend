@@ -2,6 +2,7 @@
     width: 100%;
     height: 80vh;
     background: var(--color-slide);
+    z-index: 1000;
 }
 .slide-wrapper{
     height: 100%;
