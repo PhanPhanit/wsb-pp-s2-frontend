@@ -23,3 +23,7 @@ export const getAllOrderItem = `${BASE_URL}/wsb-od-item`;
 export const createPaymentIntent = `${BASE_URL}/wsb-ch-out/create-payment-intent`;
 // Order
 export const createOrder = `${BASE_URL}/wsb-od`;
+export const getAllMyOrder = `${BASE_URL}/wsb-od/show-all-my-order`;
+// Reivew
+export const review = `${BASE_URL}/wsb-rev`;
+export const starPercent = `${BASE_URL}/wsb-rev/star-percent`;

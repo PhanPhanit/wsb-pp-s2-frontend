@@ -13,7 +13,7 @@ export const dropdownList = [
         id: 2,
         title: "History",
         icon: <FaHistory className="icon" />,
-        link: "/profile"
+        link: "/history"
     },
     {
         id: 3,

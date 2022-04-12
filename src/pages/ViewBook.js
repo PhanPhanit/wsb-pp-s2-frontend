@@ -48,7 +48,7 @@ function ViewBook() {
             <ViewBookSlide {...suggestion_product} />
             <ViewBookSectionTitle title="People also looking for" />
             <ViewBookSlide {...people_looking_product} />
-            <CustomerRate />
+            <CustomerRate productId={productId} />
         </>
     )
 }

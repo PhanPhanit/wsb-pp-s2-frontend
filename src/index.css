@@ -15,6 +15,17 @@
   --color-popup: rgba(0, 0, 0, 0.5);
   --color-dropbox: #29A95F;
   --color-white: #fff;
+
+  --color-dash-body: #F0F2F5;
+  --color-dash-black: #000000;
+  --color-dash-white: #FFFFFF;
+  --color-dash-orange: #EC8E0F;
+  --color-dash-red: #D90000;
+  --color-dash-blue: #007ED9;
+  --color-dash-gray: #AAAAAA;
+  --color-dash-input: #E9E9E9;
+  --color-dash-primary-Lightweight: #044620;
+
 }
 body{
   background: #f9f9f9;

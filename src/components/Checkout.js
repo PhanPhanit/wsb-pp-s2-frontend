@@ -3,8 +3,18 @@ import '../styles/checkout.css'
 import StripeFormContainer from './StripeFormContainer';
 import {useCartContext} from '../context/cart_context';
 import {IoArrowBackSharp} from 'react-icons/io5';
+import { useOrderContext } from '../context/order_context';
+import {toast} from 'react-toastify';
 
 const Checkout = () => {
+    const {
+        paymentInfo: {
+            phoneNumber,
+            city,
+            address
+        },
+        handleSetPaymentInfo,
+    } = useOrderContext();
     const {cart} = useCartContext();
     const [isCreditCheck, setIsCreditCheck] = useState(true);
     const [isPaypalCheck, setIsPaypalCheck] = useState(false);
@@ -20,10 +30,24 @@ const Checkout = () => {
         }
     }
 
+    const handleNextPage = () => {
+        if(!phoneNumber){
+            toast.error("Please fill phone number!");
+            return;
+        }else if(city==="0"){
+            toast.error("Please select city!");
+            return;
+        }else if(!address){
+            toast.error("Please fill address!");
+            return;
+        }
+        setStep(2);
+    }
+
     if(cart<1){
         return (
             <div className="full-height">
-                <div class="checkout-loading"><div></div><div></div><div></div><div></div></div>
+                <div className="checkout-loading"><div></div><div></div><div></div><div></div></div>
             </div>
         );
     }
@@ -45,12 +69,21 @@ const Checkout = () => {
                             </div>
                             <form className="frm-address">
                                 <div className="frm-control">
-                                    <label htmlFor="phone-number">Phone number</label>
-                                    <input type="tel" id="phone-number" className="input-control" placeholder="Your phone number" />
+                                    <label htmlFor="phonNumber">Phone number</label>
+                                    <input
+                                        type="number"
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        className="input-control"
+                                        placeholder="Your phone number"
+                                        value={phoneNumber}
+                                        onChange={handleSetPaymentInfo}
+                                    />
                                 </div>
                                 <div className="frm-control">
                                     <label htmlFor="city">City</label>
-                                    <select name="city" id="city" className="select-control">
+                                    <select name="city" id="city" className="select-control" value={city} onChange={handleSetPaymentInfo}>
+                                        <option value="0">---- Please select your city ----</option>
                                         <option value="Phnom Penh">Phnom Penh</option>
                                         <option value="Banteay Meanchey">Banteay Meanchey</option>
                                         <option value="Battambang">Battambang</option>
@@ -59,7 +92,15 @@ const Checkout = () => {
                                 </div>
                                 <div className="frm-control">
                                     <label htmlFor="address">Address</label>
-                                    <input type="text" id="address" className="input-control" placeholder="Your Address" />
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        className="input-control"
+                                        placeholder="Your Address"
+                                        name="address"
+                                        value={address}
+                                        onChange={handleSetPaymentInfo}
+                                    />
                                 </div>
                             </form>
 
@@ -83,7 +124,7 @@ const Checkout = () => {
                                 </label>
                             </div>
                             <div className="button-wrapper">
-                                <button type="button" onClick={()=>setStep(2)}>Next</button>
+                                <button type="button" onClick={handleNextPage}>Next</button>
                             </div>
                         </div>
                     ):(

@@ -9,6 +9,7 @@ import {ProductProvider} from './context/product_context';
 import {SlideBannerProvider} from './context/slide_banner_context';
 import {CartProvider} from './context/cart_context';
 import {OrderProvider} from './context/order_context';
+import { ReviewProvider } from './context/review_context';
 
 
 ReactDOM.render(
@@ -20,7 +21,9 @@ ReactDOM.render(
             <ProductProvider>
               <CartProvider>
                 <OrderProvider>
-                  <App />
+                  <ReviewProvider>
+                    <App />
+                  </ReviewProvider>
                 </OrderProvider>
               </CartProvider>
             </ProductProvider>

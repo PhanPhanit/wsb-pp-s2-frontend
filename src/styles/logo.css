@@ -3,7 +3,7 @@
 }
 .general-logo font:first-child{
     color: var(--color-primary);
-    font-size: 44px;
+    font-size: 40px;
 }
 .general-logo font:nth-child(2){
     font-size: 30px;
@@ -15,7 +15,7 @@
 }
 @media screen and (max-width: 1000px) {
     .general-logo font:first-child{
-        font-size: 40px;
+        font-size: 35px;
     }
     .general-logo font:nth-child(2){
         font-size: 25px;

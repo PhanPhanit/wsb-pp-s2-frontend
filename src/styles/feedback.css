@@ -9,19 +9,53 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.2s;
-    transform: scale(0);
+    animation: scale-feedback 0.3s;
+}
+@keyframes scale-feedback{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
 }
 .black-background.show{
-    transition: 0.2s;
     transform: scale(1);
 }
-.black-background .frm{
+.black-background .frm,
+.black-background .checking-wrapper{
     padding: 30px;
     padding-bottom: 10px;
     background: #F9F9F9;
     width: 500px;
 }
+.black-background .checking-wrapper,
+.black-background .feedback-exist-wrapper{
+    padding: 30px;
+    background: #F9F9F9;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.black-background .checking-wrapper p,
+.black-background .feedback-exist-wrapper p{
+    font-weight: bold;
+    font-size: 28px;
+}
+.black-background .feedback-exist-wrapper .btn-exist-close{
+    border: none;
+    background: red;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
 .black-background .frm .feedback-text{
     width: 100%;
     height: 100px;
@@ -64,6 +98,10 @@
 }
 .black-background .frm .btn-container .btn-send{
     background: var(--color-primary);
+}
+.black-background .frm .btn-container .btn-send.btn-send-disable{
+    pointer-events: none;
+    opacity: 0.8;
 }
 .black-background .frm .btn-container .btn-close{
     background: #9DADA4;

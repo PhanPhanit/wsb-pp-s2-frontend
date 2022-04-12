@@ -10,14 +10,19 @@ import { useOrderContext } from "../context/order_context";
 
 export default function CheckoutForm() {
   const {subtotal, shipping_fee, cart, clearCart} = useCartContext();
-  const {createOrder, paymentIntent} = useOrderContext();
+  const {
+    createOrder,
+    paymentIntent,
+    paymentInfo: {
+      phoneNumber,
+      city,
+      address
+    }
+  } = useOrderContext();
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(cart);
-
   useEffect(() => {
     if (!stripe) {
       return;
@@ -83,6 +88,10 @@ export default function CheckoutForm() {
       const data = {
         delivery: shipping_fee,
         paymentIntent: paymentIntent,
+        phoneNumber,
+        city,
+        address,
+        orderDate: new Date(Date.now()).toISOString().split('T')[0],
         orderItem
       };
       createOrder(data);

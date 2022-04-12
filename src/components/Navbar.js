@@ -6,7 +6,6 @@ import {FaUserAlt, FaSignOutAlt} from 'react-icons/fa';
 import '../styles/navbars.css';
 import {NavbarData} from './../utils/NavbarData';
 import {dropdownList} from './../utils/Dropdown';
-import {Link as LinkScroll} from 'react-scroll';
 import {useActionContext} from '../context/action_context'
 import {useUserContext} from '../context/user_context';
 import {useCartContext} from '../context/cart_context';
@@ -31,6 +30,19 @@ function Navbar() {
             setLoading(false);
             toast.success("Logout error.");
         }
+    }
+    const handleDropdownClick = (link) => {
+        if(link==="/history"){
+            historyClick();
+            navigate("/profile");
+            return;
+        }
+        if(link=="/profile"){
+            accountSettingClick();
+            navigate("/profile");
+            return;
+        }
+        navigate(link);
     }
     const handleNavMenu = (link) => {
         if(link==="/"){
@@ -63,7 +75,7 @@ function Navbar() {
                     <ul className="nav-text-center">
                         {
                             NavbarData.map(item=>{
-                                return <li onClick={()=>handleNavMenu(item.link)}>{item.title}</li>
+                                return <li key={item.id} onClick={()=>handleNavMenu(item.link)}>{item.title}</li>
                             })
                         }
                     </ul>
@@ -81,12 +93,10 @@ function Navbar() {
                                         <ul className="body">
                                             {
                                             dropdownList.map((item)=>{
-                                                    return (
-                                                    <Link to={item.link}>
-                                                        <li key={item.id}>
-                                                            {item.icon} <span>{item.title}</span>
-                                                        </li>
-                                                    </Link>
+                                                return (
+                                                    <li key={item.id} onClick={()=>handleDropdownClick(item.link)}>
+                                                        {item.icon} <span>{item.title}</span>
+                                                    </li>
                                                 );
                                             }) 
                                             }

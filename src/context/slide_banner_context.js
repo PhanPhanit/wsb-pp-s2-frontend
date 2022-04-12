@@ -23,7 +23,6 @@ const SlideBannerProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initailState);
 
     const fetchSlideBanner = async (url) => {
-        console.log(url);
         dispatch({type: SET_SLIDE_BANNER_LOADING, payload: true});
         try {
             const {data: {slide}} = await axios.get(url);

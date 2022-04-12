@@ -5,16 +5,31 @@ import { Navbar, Sidebar, Footer, Feedback, Checkout, SendToken, PrivateRoute } 
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthWrapper from "./components/AuthWrapper";
+import { useActionContext } from "./context/action_context";
+import DashProtectedRoute from "./protected/DashProtectedRoute";
+import {
+  BookPage,
+  CategoryPage,
+  DashboardLayout,
+  DashboardPage,
+  OrderPage,
+  ProfilePage,
+  UserPage
+} from './dashboard/pages';
+import { ActionProvider } from "./dashboard/contexts/action_context";
 
 
 function App() {
+  const {isFeedbackOpen} = useActionContext();
   return (
     <AuthWrapper>
       <Router>
         <ToastContainer position="top-center" />
         <Navbar />
         <Sidebar />
-        <Feedback />
+        {
+          isFeedbackOpen && <Feedback />
+        }
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/categories/:id" element={<Category />} />
@@ -36,6 +51,29 @@ function App() {
               <SuccessCheckout />
             </PrivateRoute>
           } />
+
+
+          {/* start dashboard */}
+
+          <Route path="/dashboard" element={
+            <DashProtectedRoute>
+              <ActionProvider>
+                <DashboardLayout />
+              </ActionProvider>
+            </DashProtectedRoute>
+          }>
+            <Route index element={<DashboardPage />} />
+            <Route path="category" element={<CategoryPage />} />
+            <Route path="book" element={<BookPage />} />
+            <Route path="order" element={<OrderPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="user" element={<UserPage />} />
+          </Route>
+
+          {/* end dashboard */}
+
+
+
           <Route path="/viewbook/:id" element={<ViewBook />} />
           <Route path="/send-token" element={<SendToken />} />
           <Route path="*" element={<Error />} />
