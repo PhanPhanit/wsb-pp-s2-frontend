@@ -24,4 +24,12 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: 0.2s;
+}
+.dash-cate-wrapper .name-create .btn-create:hover{
+    opacity: 0.8;
+}
+.dash-cate-wrapper .cate-table-wrapper{
+    width: 100%;
+    margin-top: 20px;
 }

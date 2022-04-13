@@ -1,0 +1,29 @@
+.dash-order-wrapper{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+}
+.dash-order-wrapper .order-filter{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.dash-order-wrapper .order-filter select{
+    border: none;
+    outline: none;
+    background: var(--color-dash-white);
+    font-size: 20px;
+    padding: 15px;
+    width: 250px;
+}
+.dash-order-wrapper .order-table-wrapper{
+    width: 100%;
+    margin-top: 10px;
+}
+.dash-order-wrapper .order-pagination-wrapper{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
