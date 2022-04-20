@@ -38,7 +38,7 @@ const Signup = () => {
         setLoading(true);
         try {
             const {data} = await axios.post(registerUrl, {...inputValue, name: inputValue.fullName});
-            saveUser(data.tokenUser);
+            saveUser(data.user);
             toast.success("Registration succeed.");
             navigate('/');
             setInputValue({

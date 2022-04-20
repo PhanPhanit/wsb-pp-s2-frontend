@@ -93,6 +93,9 @@ function Navbar() {
                                         <ul className="body">
                                             {
                                             dropdownList.map((item)=>{
+                                                if(item.id===3 && myUser.role==='user'){
+                                                    return;
+                                                }
                                                 return (
                                                     <li key={item.id} onClick={()=>handleDropdownClick(item.link)}>
                                                         {item.icon} <span>{item.title}</span>
