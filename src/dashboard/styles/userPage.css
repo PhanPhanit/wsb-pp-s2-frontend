@@ -4,3 +4,60 @@
     padding: 20px;
     overflow-y: scroll;
 }
+.dash-user-wrapper .search-filter{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dash-user-wrapper .search-filter .frm-search{
+    position: relative;
+}
+.dash-user-wrapper .search-filter .frm-search input{
+    border: 2px solid var(--color-primary);
+    padding: 8px 10px;
+    padding-right: 35px;
+    font-size: 16px;
+    border-radius: 20px;
+    width: 350px;
+    outline: none;
+    transition: 0.2s;
+}
+.dash-user-wrapper .search-filter .frm-search .search-icon{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--color-primary);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.dash-user-wrapper .search-filter .frm-search input:focus{
+    border: 2px solid #1c7a45;
+}
+.dash-user-wrapper .search-filter .frm-search input:focus ~ button .search-icon{
+    color: #1c7a45;
+}
+.dash-user-wrapper .search-filter select{
+    border: none;
+    outline: none;
+    background: var(--color-dash-white);
+    font-size: 18px;
+    padding: 10px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+/* table */
+.dash-user-wrapper .user-table-wrapper{
+    margin-top: 10px;
+}
+/* pagination */
+.dash-user-wrapper .user-pagination-wrapper{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

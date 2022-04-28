@@ -1,37 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import '../styles/dashCategoryPage.css';
+import React, {useState, useEffect} from 'react';
 import '../styles/dashTable.css';
+import '../styles/dashSlidePage.css';
 import {AiOutlinePlus} from 'react-icons/ai';
 import {FaEdit, FaTrashAlt} from 'react-icons/fa';
-import { useDashCategoryContext } from '../contexts/dash_category_context';
 import { useActionContext } from '../contexts/action_context';
+import { useDashSlideContext } from '../contexts/dash_slide_context';
 
-const CategoryPage = () => {
+const SlidePage = () => {
   const {openFormCreate, openFormUpdate} = useActionContext();
-  const [categoryLoading, setCategoryLoading] = useState(true);
+  const [slideLoading, setSlideLoading] = useState(true);
   const {
-    fetchCategory,
-    categories,
-    deleteCategory,
-    setUpdateCategoryId
-  } = useDashCategoryContext();
+    fetchSlide,
+    slides,
+    deleteSlide,
+    setUpdateSlideId
+  } = useDashSlideContext();
 
   useEffect(()=>{
-    fetchAllCategory();
+    fetchAllSlide();
   }, []);
 
-  const fetchAllCategory = async () => {
-    setCategoryLoading(true);
-    await fetchCategory();
-    setCategoryLoading(false);
+  const fetchAllSlide = async () => {
+    setSlideLoading(true);
+    await fetchSlide();
+    setSlideLoading(false);
   }
 
-  const handleEditCategory = (categoryId) => {
+  const handleEditCategory = (slideId) => {
     openFormUpdate();
-    setUpdateCategoryId(categoryId);
+    setUpdateSlideId(slideId);
   }
 
-  if(categoryLoading){
+  if(slideLoading){
     return (
       <div className="dash-loading">
         <div className="dash-lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -39,16 +39,17 @@ const CategoryPage = () => {
     );
   }
 
+
   return (
-    <div className="dash-cate-wrapper">
+    <div className="dash-slide-wrapper">
       <div className="name-create">
-        <h2>Category List</h2>
+        <h2>Slide List</h2>
         <button type="button" className="btn-create" onClick={openFormCreate}>
           <span>Create</span>
           <AiOutlinePlus className="icon" />
         </button>
       </div>
-      <div className="cate-table-wrapper">
+      <div className="slide-table-wrapper">
         <table className="dash-tbl">
           <thead>
             <tr>
@@ -62,20 +63,21 @@ const CategoryPage = () => {
           </thead>
           <tbody>
             {
-              categories.map((category, index)=>{
+              slides.map((slide, index)=>{
                 const numbering = index + 1;
+                const {_id: id, title, product: {image}, isShow} = slide;
                 return (
                   <tr key={index}>
                     <td>{numbering}</td>
-                    <td className="title">{category.name}</td>
+                    <td className="title">{title}</td>
                     <td className="photo">
-                      <div className="slide-photo">
-                        <img src={category.image} alt={category.name} />
+                      <div className="img-box">
+                        <img src={image[0]} alt={title} />
                       </div>
                     </td>
-                    <td>{category.isShow.toString()}</td>
-                    <td><FaEdit className="icon-edit" onClick={()=>handleEditCategory(category._id)} /></td>
-                    <td><FaTrashAlt className="icon-delete" onClick={()=>deleteCategory(category._id)} /></td>
+                    <td>{isShow.toString()}</td>
+                    <td><FaEdit className="icon-edit" onClick={()=>handleEditCategory(id)} /></td>
+                    <td><FaTrashAlt className="icon-delete" onClick={()=>deleteSlide(id)} /></td>
                   </tr>
                 )
               })
@@ -83,9 +85,8 @@ const CategoryPage = () => {
           </tbody>
         </table>
       </div>
-      
     </div>
   )
 }
 
-export default CategoryPage
+export default SlidePage

@@ -14,9 +14,15 @@ import {
   DashboardPage,
   OrderPage,
   ProfilePage,
-  UserPage
+  UserPage,
+  SlidePage
 } from './dashboard/pages';
 import { ActionProvider } from "./dashboard/contexts/action_context";
+import {DashboardContextProvider} from './dashboard/contexts/dashboard_context';
+import { DashCategoryContextProvider } from "./dashboard/contexts/dash_category_context";
+import {DashBookContextProvider} from './dashboard/contexts/dash_book_context';
+import {DashSlideContextProvider} from './dashboard/contexts/dash_slide_context';
+import {DashOrderContextProvider} from './dashboard/contexts/dash_order_context';
 
 
 function App() {
@@ -58,13 +64,24 @@ function App() {
           <Route path="/dashboard" element={
             <DashProtectedRoute>
               <ActionProvider>
-                <DashboardLayout />
+                <DashboardContextProvider>
+                  <DashCategoryContextProvider>
+                    <DashBookContextProvider>
+                      <DashSlideContextProvider>
+                        <DashOrderContextProvider>
+                          <DashboardLayout />
+                        </DashOrderContextProvider>
+                      </DashSlideContextProvider>
+                    </DashBookContextProvider>
+                  </DashCategoryContextProvider>
+                </DashboardContextProvider>
               </ActionProvider>
             </DashProtectedRoute>
           }>
             <Route index element={<DashboardPage />} />
             <Route path="category" element={<CategoryPage />} />
             <Route path="book" element={<BookPage />} />
+            <Route path="slide" element={<SlidePage />} />
             <Route path="order" element={<OrderPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="user" element={<UserPage />} />

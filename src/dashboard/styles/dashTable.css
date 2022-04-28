@@ -45,6 +45,15 @@
     object-fit: cover;
     transition: 0.3s;
 }
+.dash-tbl tr td .slide-photo{
+    width: 80px;
+    height: 80px;
+}
+.dash-tbl tr td .slide-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .dash-tbl tr td .img-box:hover img{
     transform: scale(1.1);
 }

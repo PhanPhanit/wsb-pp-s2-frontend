@@ -5,6 +5,7 @@ import BookPage from "./BookPage";
 import OrderPage from "./OrderPage";
 import ProfilePage from "./ProfilePage";
 import UserPage from "./UserPage";
+import SlidePage from "./SlidePage";
 
 
 
@@ -15,5 +16,6 @@ export {
     BookPage,
     OrderPage,
     ProfilePage,
-    UserPage
+    UserPage,
+    SlidePage
 }

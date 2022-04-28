@@ -28,7 +28,8 @@ const UserPage = () => {
             <tr>
               <th width="80">No.</th>
               <th className="title">Name</th>
-              <th width="200">Photo</th>
+              <th className="title">Email</th>
+              <th width="100">Type</th>
               <th width="80">Edit</th>
               <th width="80">Delete</th>
             </tr>
@@ -39,12 +40,9 @@ const UserPage = () => {
                 return (
                   <tr>
                     <td>1</td>
-                    <td className="title">Novel</td>
-                    <td className="photo">
-                      <div className="img-box">
-                        <img src="https://kbimages1-a.akamaihd.net/93affabc-5161-421e-80d5-4477a07b8cee/353/569/90/False/harry-potter-and-the-philosopher-s-stone-3.jpg" alt="" />
-                      </div>
-                    </td>
+                    <td className="title">Phan Phanit</td>
+                    <td className="title">phanphanit.pp12345@gmail.com</td>
+                    <td>manager</td>
                     <td><FaEdit className="icon-edit" /></td>
                     <td><FaTrashAlt className="icon-delete" /></td>
                   </tr>

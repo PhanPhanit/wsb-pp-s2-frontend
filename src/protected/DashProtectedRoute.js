@@ -4,7 +4,6 @@ import { useUserContext } from '../context/user_context';
 
 const DashProtectedRoute = ({children}) => {
   const {myUser} = useUserContext();
-  console.log(myUser);
   if(!myUser || myUser?.role==='user'){
     return <Navigate to='/' />
   }

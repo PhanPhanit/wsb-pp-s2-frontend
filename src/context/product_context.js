@@ -94,7 +94,8 @@ const ProductProvider = ({children}) => {
             dispatch({type: SET_SINGLE_PRODUCT_LOADING, payload: false})
             // fetch suggestion product and people looking
             fetchSuggestionProduct(`${getAllProductUrl}?limit=15&category=${product.category}&sort=-sold`);
-            fetchPeopleLookingProduct(`${getAllProductUrl}?limit=15&category=${product.category}&sort=-views`);
+            // fetchPeopleLookingProduct(`${getAllProductUrl}?limit=15&category=${product.category}&sort=-views`);
+            fetchPeopleLookingProduct(`${getAllProductUrl}?limit=15&sort=-views`);
             // increase view
             const productId = product._id;
             await axios.get(`${getAllProductUrl}/increase-view/${productId}`);

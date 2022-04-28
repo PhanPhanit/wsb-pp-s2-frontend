@@ -1,33 +1,157 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/bookPage.css';
 import '../styles/dashTable.css';
 import '../styles/dashPagination.css';
 import {FaSearch, FaEdit, FaTrashAlt} from 'react-icons/fa';
 import {AiOutlinePlus} from 'react-icons/ai';
 import Pagination from '@mui/material/Pagination';
+import { useDashBookContext } from '../contexts/dash_book_context';
+import { useActionContext } from '../contexts/action_context';
+import { productUrl } from '../../UrlEndPoint';
+import { categoryUrl } from '../../UrlEndPoint';
+import {formatMoney} from '../../utils/Tools';
 
 const BookPage = () => {
+  const {openFormCreate, openFormUpdate} = useActionContext();
+  const {
+    fechProduct,
+    products,
+    currentPage,
+    totalPage,
+    fetchCategory,
+    categories,
+    setUpdateProductId,
+    deleteProduct
+  } = useDashBookContext();
+  const [fetchProductLoading, setFetchProductLoading] = useState(true);
+  const [tableLoading, setTableLoading] = useState(false);
+  const [productPage, setProductPage] = useState(1);
+  const [filterCategory, setFilterCategory] = useState('all');
+  const [productSearch, setProductSearch] = useState("");
+
+
+
+  const firstFetchProduct = async () => {
+    setFetchProductLoading(true);
+    try {
+      await fechProduct(`${productUrl}/all?page=${productPage}&sort=-createdAt`);
+    } catch (error) {
+      console.log(error);
+    }
+    setFetchProductLoading(false);
+  }
+  const firstFetchCategory = async () => {
+    try {
+      await fetchCategory(`${categoryUrl}/all?isShow=true&sort=-createdAt`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const pageChange = async (_, value) => {
+    setProductPage(value);
+    setTableLoading(true);
+    let url = `${productUrl}/all?page=${value}&sort=-createdAt`;
+    if(filterCategory!=='all'){
+      url += `&category=${filterCategory}`;
+    }
+    if(productSearch!==""){
+      url += `&search=${productSearch}`;
+    }
+    try {
+      await fechProduct(url);
+    } catch (error) {
+      console.log(error);
+    }
+    setTableLoading(false);
+  }
+  const handleFilterCategoryChange = async (e) => {
+    setProductSearch("");
+    const value = e.currentTarget.value;
+    setFilterCategory(value);
+    setProductPage(1)
+    setTableLoading(true);
+    let url;
+    if(value==='all'){
+      url = `${productUrl}/all?page=1&sort=-createdAt`;
+    }else{
+      url = `${productUrl}/all?page=1&category=${value}&sort=-createdAt`;
+    }
+    try {
+      await fechProduct(url);
+    } catch (error) {
+      console.log(error);
+    }
+    setTableLoading(false);
+
+  }
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setProductPage(1);
+    setTableLoading(true);
+    let url = `${productUrl}/all?page=${1}&search=${productSearch}&sort=-createdAt`;
+    if(filterCategory!=='all'){
+      url += `&category=${filterCategory}`;
+    }
+    console.log(url);
+    try {
+      await fechProduct(url);
+    } catch (error) {
+      console.log(error);
+    }
+    setTableLoading(false);
+  }
+
+  const handleEditBook = (bookId) => {
+    openFormUpdate();
+    setUpdateProductId(bookId);
+  }
+
+  useEffect(()=>{
+    firstFetchProduct();
+    firstFetchCategory();
+  }, []);
+
+
+  if(fetchProductLoading){
+    return (
+      <div className="dash-loading">
+        <div className="dash-lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    );
+  }
+
   return (
     <div className="dash-book-wrapper">
       <div className="search-create">
-        <form className="frm-search">
-          <input type="text" placeholder="Search here..." />
+        <form className="frm-search" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search here..."
+            value={productSearch}
+            onChange={e=>setProductSearch(e.target.value)}
+          />
           <button type="submit">
             <FaSearch className="search-icon" />
           </button>
         </form>
-        <button className="btn-create">
+        <button className="btn-create" onClick={openFormCreate}>
           <span>Create</span>
           <AiOutlinePlus className="icon" />
         </button>
       </div>
       <div className="filter-book">
-        <select>
+        <select value={filterCategory} onChange={handleFilterCategoryChange}>
           <option value="all">All</option>
-          <option value="1">Novel</option>
-          <option value="2">Inspiration</option>
-          <option value="3">Fiction</option>
-          <option value="4">Sicnce</option>
+          {
+            categories.map((category, index)=>{
+              const {_id: id, name} = category;
+              return (
+                <option key={index} value={id}>{name}</option>
+              );
+            })
+          }
         </select>
       </div>
       <div className="book-table-wrapper">
@@ -36,25 +160,33 @@ const BookPage = () => {
             <tr>
               <th width="80">No.</th>
               <th className="title">Name</th>
+              <th width="80">Price</th>
+              <th width="80">Discount</th>
               <th width="200">Photo</th>
+              <th width="80">Show</th>
               <th width="80">Edit</th>
               <th width="80">Delete</th>
             </tr>
           </thead>
           <tbody>
             {
-              Array.from({length: 10}).map(item=>{
+              !tableLoading && products.map((product, index)=>{
+                const {_id: id, name, isShow, image, price, discount} = product;
+                const altIndex = 10 * currentPage - 10 + (index + 1);
                 return (
-                  <tr>
-                    <td>1</td>
-                    <td className="title">Novel</td>
+                  <tr key={index}>
+                    <td>{altIndex}</td>
+                    <td className="title">{name}</td>
+                    <td>{formatMoney(price)}</td>
+                    <td>{formatMoney(discount)}</td>
                     <td className="photo">
                       <div className="img-box">
-                        <img src="https://kbimages1-a.akamaihd.net/93affabc-5161-421e-80d5-4477a07b8cee/353/569/90/False/harry-potter-and-the-philosopher-s-stone-3.jpg" alt="" />
+                        <img src={image[0]} alt={name} />
                       </div>
                     </td>
-                    <td><FaEdit className="icon-edit" /></td>
-                    <td><FaTrashAlt className="icon-delete" /></td>
+                    <td>{isShow.toString()}</td>
+                    <td><FaEdit className="icon-edit" onClick={()=>handleEditBook(id)} /></td>
+                    <td><FaTrashAlt className="icon-delete" onClick={()=>deleteProduct(id)} /></td>
                   </tr>
                 )
               })
@@ -62,14 +194,43 @@ const BookPage = () => {
           </tbody>
         </table>
       </div>
-      <div className="book-pagination-wrapper">
-        <div className="dash-pagination">
-          <Pagination
-            count={10}
-            shape="rounded"  
-          />
-        </div>
-      </div>
+
+      {/* product loading */}
+      {
+        tableLoading && (
+          <div className="loading-wrapper">
+            <div className="dash-loading">
+              <div className="dash-lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
+        )
+      }
+      {/* end product loading */}
+
+      {/* no product */}
+      {
+        !tableLoading && products.length === 0 && (
+          <div className="d-flex align-item-center justify-content-center m-top-20">
+            <h2>No product</h2>
+          </div>
+        )
+      }
+      {/* end no product */}
+
+      {
+        !tableLoading && products.length !== 0 && (
+          <div className="book-pagination-wrapper">
+            <div className="dash-pagination">
+              <Pagination
+                count={totalPage}
+                shape="rounded"
+                page={productPage}
+                onChange={pageChange}
+              />
+            </div>
+          </div>
+        )
+      }
     </div>
   )
 }

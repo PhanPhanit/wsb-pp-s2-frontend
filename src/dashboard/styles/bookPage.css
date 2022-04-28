@@ -16,6 +16,7 @@
 .dash-book-wrapper .search-create .frm-search input{
     border: 2px solid var(--color-primary);
     padding: 8px 10px;
+    padding-right: 35px;
     font-size: 16px;
     border-radius: 20px;
     width: 350px;
@@ -30,6 +31,7 @@
     font-size: 20px;
     color: var(--color-primary);
     transition: 0.2s;
+    cursor: pointer;
 }
 .dash-book-wrapper .search-create .frm-search input:focus{
     border: 2px solid #1c7a45;
@@ -63,12 +65,19 @@
     outline: none;
     background: var(--color-dash-white);
     font-size: 18px;
-    padding: 15px;
-    width: 200px;
+    padding: 10px;
+    width: 250px;
+    cursor: pointer;
+    border-radius: 8px;
 }
 /* table */
 .dash-book-wrapper .book-table-wrapper{
     margin-top: 10px;
+}
+/* loading wrapper */
+.dash-book-wrapper .loading-wrapper{
+    width: 100%;
+    height: 500px;
 }
 /* pagination */
 .dash-book-wrapper .book-pagination-wrapper{
