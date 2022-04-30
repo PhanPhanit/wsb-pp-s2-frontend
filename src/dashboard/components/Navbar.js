@@ -12,7 +12,7 @@ import { useUserContext } from '../../context/user_context';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const {removeUser, setLoading} = useUserContext();
+    const {removeUser, setLoading, myUser} = useUserContext();
     const {
         isUserShow,
         setIsUserShow,
@@ -47,11 +47,11 @@ const Navbar = () => {
         </div>
         <div className="right">
             <div className="user">
-                <h2>Phan Phanit</h2>
+                <h2>{myUser.name}</h2>
                 <IoChevronDown className="arrow-down" onClick={()=>setIsUserShow(!isUserShow)} />
                 <ul className={isUserShow?"box-down show":"box-down"}>
                     <li className="header">
-                        <h4>phanphanit@gmail.com</h4>
+                        <h4>{myUser.email}</h4>
                     </li>
                     <li className="footer">
                         <MdLogout className="logout-icon" onClick={handleLogout} />

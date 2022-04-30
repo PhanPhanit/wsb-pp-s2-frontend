@@ -331,6 +331,9 @@ a{
   animation: spinner-bulqg1 0.8s infinite linear alternate,
        spinner-oaa3wk 1.6s infinite linear;
 }
+.button-spinner.button-spinner-primary{
+  border: 3px solid var(--color-primary);
+}
 
 @keyframes spinner-bulqg1 {
   0% {
@@ -382,6 +385,9 @@ a{
 /* flex center */
 .d-flex{
   display: flex;
+}
+.flex-1{
+  flex: 1;
 }
 .align-item-center{
   align-items: center;

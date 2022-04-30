@@ -37,6 +37,7 @@ const Signin = () => {
             saveUser(data.user);
             setInputValue({email: '', password: ''});
             toast.success("Sign in successfully!")
+            setLoading(false);
             navigate('/')
         } catch (error) {
             if(error.response){
@@ -44,8 +45,8 @@ const Signin = () => {
                 toast.error(msg)
             }
             removeUser();
+            setLoading(false);
         }
-        setLoading(false);
     }
     const googleLogin = async () => {
         window.open(googleLoginUrl, "_self");

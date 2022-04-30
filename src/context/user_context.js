@@ -1,5 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from 'axios';
+import {
+    updateUser as updateUserUrl,
+    updateUserPassword as updateUserPasswordUrl
+} from "../UrlEndPoint";
 
 const UserContext = React.createContext();
 const UserProvider = ({children}) => {
@@ -24,12 +28,23 @@ const UserProvider = ({children}) => {
         setMyUser(null);
     }
 
+    const updateUser = async (data) => {
+        const {data: {user}} = await axios.patch(updateUserUrl, data);
+        setMyUser(user);
+    }
+
+    const updatePasswordUser = async (data) => {
+        await axios.patch(updateUserPasswordUrl, data);
+    }
+
     return <UserContext.Provider value={{
         loading,
         setLoading,
         myUser,
         saveUser,
-        removeUser
+        removeUser,
+        updateUser,
+        updatePasswordUser
     }}>{children}</UserContext.Provider>
 }
 

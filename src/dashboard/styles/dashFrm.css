@@ -165,9 +165,70 @@
     opacity: 0.6;
     pointer-events: none;
 }
+
+
+/* order */
+.dash-form-wrapper .body .order-user-date{
+    border: 2px solid var(--color-dash-gray);
+    padding: 4px 20px;
+    font-size: 22px;
+}
+
+.dash-form-wrapper .body .order-user-date div .icon,
+.dash-form-wrapper .body .order-user-date > span{
+    color: #7C7C7C;
+}
+.dash-form-wrapper .body .order-user-date div{
+    display: flex;
+    align-items: center;
+}
+.dash-form-wrapper .body .order-user-date div .icon{
+    font-size: 32px;
+}
+.dash-form-wrapper .body .info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.dash-form-wrapper .body .info div{
+    font-size: 22px;
+    display: flex;
+    gap: 5px 10px;
+    flex-wrap: wrap;
+}
+.dash-form-wrapper .body .tbl-order-item{
+    width: 100%;
+    border-collapse: collapse;
+}
+.dash-form-wrapper .body .tbl-order-item tr{
+    font-size: 22px;
+    border: 1px solid #E8E8E8;
+}
+.dash-form-wrapper .body .tbl-order-item tbody tr td{
+    cursor: pointer;
+}
+.dash-form-wrapper .body .tbl-order-item tr th,
+.dash-form-wrapper .body .tbl-order-item tr td{
+    text-align: center;
+    padding: 10px 8px;
+}
+.dash-form-wrapper .body .tbl-order-item tr th.title,
+.dash-form-wrapper .body .tbl-order-item tr td.title{
+    text-align: left;
+}
+.dash-form-wrapper .body .tbl-order-item tbody tr:hover td{
+    color: var(--color-primary);
+}
+/* end order */
+
+
+
 /* btn order */
 .dash-form-wrapper .footer .btn-comfirm-order,
 .dash-form-wrapper .footer .btn-close-order{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--color-dash-white);
     border-radius: 5px;
     border: none;

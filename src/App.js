@@ -23,6 +23,7 @@ import { DashCategoryContextProvider } from "./dashboard/contexts/dash_category_
 import {DashBookContextProvider} from './dashboard/contexts/dash_book_context';
 import {DashSlideContextProvider} from './dashboard/contexts/dash_slide_context';
 import {DashOrderContextProvider} from './dashboard/contexts/dash_order_context';
+import { DashUserContextProvider } from "./dashboard/contexts/dash_user_context";
 
 
 function App() {
@@ -69,7 +70,9 @@ function App() {
                     <DashBookContextProvider>
                       <DashSlideContextProvider>
                         <DashOrderContextProvider>
-                          <DashboardLayout />
+                          <DashUserContextProvider>
+                            <DashboardLayout />
+                          </DashUserContextProvider>
                         </DashOrderContextProvider>
                       </DashSlideContextProvider>
                     </DashBookContextProvider>

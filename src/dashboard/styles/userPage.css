@@ -4,16 +4,16 @@
     padding: 20px;
     overflow-y: scroll;
 }
-.dash-user-wrapper .search-filter{
+.dash-user-wrapper .search-create{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.dash-user-wrapper .search-filter .frm-search{
+.dash-user-wrapper .search-create .frm-search{
     position: relative;
 }
-.dash-user-wrapper .search-filter .frm-search input{
+.dash-user-wrapper .search-create .frm-search input{
     border: 2px solid var(--color-primary);
     padding: 8px 10px;
     padding-right: 35px;
@@ -23,7 +23,7 @@
     outline: none;
     transition: 0.2s;
 }
-.dash-user-wrapper .search-filter .frm-search .search-icon{
+.dash-user-wrapper .search-create .frm-search .search-icon{
     position: absolute;
     top: 50%;
     right: 15px;
@@ -33,13 +33,36 @@
     transition: 0.2s;
     cursor: pointer;
 }
-.dash-user-wrapper .search-filter .frm-search input:focus{
+.dash-user-wrapper .search-create .frm-search input:focus{
     border: 2px solid #1c7a45;
 }
-.dash-user-wrapper .search-filter .frm-search input:focus ~ button .search-icon{
+.dash-user-wrapper .search-create .frm-search input:focus ~ button .search-icon{
     color: #1c7a45;
 }
-.dash-user-wrapper .search-filter select{
+
+.dash-user-wrapper .search-create .btn-create{
+    background: var(--color-primary);
+    color: var(--color-dash-white);
+    border: none;
+    outline: none;
+    padding: 8px 10px;
+    font-size: 18px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+.dash-user-wrapper .search-create .btn-create:hover{
+    opacity: 0.8;
+}
+
+/* filter user */
+.dash-user-wrapper .filter-user{
+    width: 100%;
+    margin-top: 20px;
+}
+.dash-user-wrapper .filter-user select{
     border: none;
     outline: none;
     background: var(--color-dash-white);

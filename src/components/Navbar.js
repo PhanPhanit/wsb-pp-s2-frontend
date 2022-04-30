@@ -88,7 +88,7 @@ function Navbar() {
                                     </div>
                                     <div className="dropdown">
                                         <div className="header">
-                                            <span>Phan Phanit</span>
+                                            <span>{myUser.name}</span>
                                         </div>
                                         <ul className="body">
                                             {

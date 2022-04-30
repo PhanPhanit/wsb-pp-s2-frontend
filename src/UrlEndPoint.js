@@ -12,6 +12,9 @@ export const logout = `${BASE_URL}/auth/logout`;
 export const getAllUser = `${BASE_URL}/users`;
 export const showCurrentUser = `${BASE_URL}/users/showMe`;
 export const countAllUser = `${BASE_URL}/users/count-all-user`;
+export const updateUser = `${BASE_URL}/users/updateUser`;
+export const updateUserPassword = `${BASE_URL}/users/updateUserPassword`;
+export const userUrl = `${BASE_URL}/users`;
 // Slide
 export const getAllSlide = `${BASE_URL}/wsb-slide`;
 export const slideUrl = `${BASE_URL}/wsb-slide`;

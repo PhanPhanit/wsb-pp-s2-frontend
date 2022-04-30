@@ -19,3 +19,6 @@ export const UPDATE_SLIDE = "UPDATE_SLIDE";
 // Order action
 export const SET_ORDER = "SET_ORDER";
 export const SET_VIEW_ORDER_ID = "SET_VIEW_ORDER_ID";
+export const COMFIRM_ORDER = "COMFIRM_ORDER";
+// User action
+export const SET_USER = "SET_USER";
