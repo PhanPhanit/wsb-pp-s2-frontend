@@ -2,8 +2,8 @@ const BASE_URL = "/api/v1";
 // Respone cookie
 export const responseCookie = `${BASE_URL}/wsb-res-cookie`;
 // Login with social media
-export const facebookLogin = `http://localhost:5000${BASE_URL}/auth/facebook`;
-export const googleLogin = `http://localhost:5000${BASE_URL}/auth/google`;
+export const facebookLogin = `https://wsb-node-server.herokuapp.com${BASE_URL}/auth/facebook`;
+export const googleLogin = `https://wsb-node-server.herokuapp.com${BASE_URL}/auth/google`;
 // Auth
 export const register = `${BASE_URL}/auth/register`;
 export const login = `${BASE_URL}/auth/login`;
