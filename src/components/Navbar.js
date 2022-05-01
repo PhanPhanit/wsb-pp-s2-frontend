@@ -61,7 +61,7 @@ function Navbar() {
     }
     return (
         <header>
-            <div className="nav-center-wrapper">
+            <div className="nav-center-wrapper font-poppin">
                 <div className="nav-center">
                     <div className="nav-logo-search">
                         <Logo />

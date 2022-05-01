@@ -23,7 +23,7 @@ const NewArrivalBox = () => {
     }} = useProductContext();
     const {addToCart} = useCartContext();
     return (
-        <section className="section-white">
+        <section className="section-white font-poppin">
             <div className="wrapper-global wrapper-arrive">
 
                 <div className="title-arrive">

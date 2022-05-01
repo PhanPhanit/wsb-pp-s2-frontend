@@ -8,7 +8,7 @@ const CategorySection = () => {
     const param = useParams();
     const {category} = useCategoryContext();
     return (
-        <section className="wrapper-global section-cate-wrap">
+        <section className="wrapper-global section-cate-wrap font-poppin">
             {
                 category.map((item)=>{
                     const {_id: categoryId, name, image} = item;

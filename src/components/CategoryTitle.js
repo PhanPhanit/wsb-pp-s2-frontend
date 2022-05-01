@@ -4,7 +4,7 @@ import '../styles/category.css'
 const Category = ({title}) => {
     return (
         <section className="wrapper-global category">
-            <h2 className="font-cat">{title}</h2>
+            <h2 className="font-cat font-poppin">{title}</h2>
         </section>
     )
 }
