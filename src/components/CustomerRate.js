@@ -58,7 +58,7 @@ const CustomerRate = ({productId}) => {
     }
     console.log(starPercent);
     return (
-        <section className="customer-rate">
+        <section className="customer-rate font-poppin">
             <div className="wrapper-global">
 
                 {

@@ -33,7 +33,7 @@ const ViewBookDetail = () => {
     } = product;
     const [indexImage, setIndexImage] = useState(0);
     return (
-        <section id="view-book-header">
+        <section id="view-book-header" className="font-poppin">
             <div className="left">
                 <div className="img-box">
                     {

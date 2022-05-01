@@ -49,6 +49,7 @@
     grid-template-columns: 1fr 500px;
     padding: 30px 100px;
     gap: 20px;
+    overflow-y: scroll;
 }
 @media screen and (max-width: 1200px) {
     #signin-signup-section .sign-wrapper{
@@ -162,12 +163,13 @@
     display: none;
 }
 #signin-signup-section .sign-wrapper .right .frm .frm-control .input input{
-    padding: 10px 8px;
+    padding: 16px 8px;
     border: 1px solid #CCCCCC;
     outline: none;
     border-radius: 5px;
     font-size: 16px;
     padding-right: 35px;
+    
 }
 #signin-signup-section .sign-wrapper .right .frm .frm-control .input input:invalid{
     border: 1px solid red;
@@ -177,11 +179,13 @@
 }
 #signin-signup-section .sign-wrapper .right .frm .frm-control .input .icon{
     position: absolute;
-    top: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     right: 10px;
     cursor: pointer;
     font-size: 20px;
     color: #A8A7A7;
+
 }
 #signin-signup-section .sign-wrapper .right .frm .frm-control .input .icon:hover{
     opacity: 0.8;

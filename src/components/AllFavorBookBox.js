@@ -22,7 +22,7 @@ const AllFavorBookBox = (props) => {
         image
     } = props;
     return (
-        <div className="favor-box">
+        <div className="favor-box font-poppin">
                 <Link to={`/viewbook/${productId}`}>
                     <div className="img-box">
                         <img src={image[0]} alt={name} />

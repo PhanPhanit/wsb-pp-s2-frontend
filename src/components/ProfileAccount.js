@@ -4,7 +4,7 @@ import {FaEdit} from 'react-icons/fa';
 
 const ProfileAccount = () => {
     return (
-        <div className="right">
+        <div className="right font-poppin">
             <h2 className='title'>Account Setting</h2>
             <form className='frm'>
                 <h3 className='sub-title'>User name</h3>
