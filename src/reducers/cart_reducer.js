@@ -23,6 +23,7 @@ const cart_reducer = (state, action) => {
     }
     if(action.type===COUNT_CART_TOTALS){
         let {total_items, subtotal} = state.cart.reduce((total, item)=>{
+            console.log(item);
             const {quantity, product: {price, discount}} = item;
             total.total_items += quantity;
             total.subtotal += (price - discount) * quantity;
