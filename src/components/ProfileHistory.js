@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 import '../styles/profileHistory.css';
 import {useActionContext} from '../context/action_context';
 import { useOrderContext } from '../context/order_context';
 import {sortName, formatMoney} from '../utils/Tools';
 import { useReviewContext } from '../context/review_context';
+import Translate from '../Translate';
 
 
 const ProfileHistory = () => {
@@ -28,17 +30,17 @@ const ProfileHistory = () => {
     return (
         <div className="account-history">
             <div className="title">
-                <h2>History</h2>
+                <h2><Translate>history</Translate></h2>
             </div>
             <div className="history-order-container">
                 <div className="title">
-                    <h4>Your ordered</h4>
+                    <h4><Translate>your_ordered</Translate></h4>
                 </div>
                 <div className="body-item">
                     {
                         orderLoading?(
                             <div className="order-history-loading">
-                                Loading...
+                                <Translate>loading</Translate>
                             </div>
                         ):(
                             orderItem.map((item, index)=>{
@@ -58,18 +60,20 @@ const ProfileHistory = () => {
                                         <p>{index}</p>
                                         <div className="p-info">
                                             <div className="img-box">
-                                                <img src={image} alt="" />
+                                                <Link to={`/viewbook/${product}`}>
+                                                    <img src={image} alt="" />
+                                                </Link>
                                             </div>
                                             <div className="info">
-                                                <span><h4>Title: </h4> <p>{sortName(name, 60)}</p> </span>
-                                                <span><h4>Price: </h4> <p>{formatMoney(price-discount)}</p> </span>
-                                                <span><h4>Quantity:</h4> <p>{quantity}</p></span>
-                                                <span><h4>Date: </h4> <p>{orderDate.split('T')[0]}</p> </span>
+                                                <span><h4><Translate>title</Translate>: </h4> <p>{sortName(name, 60)}</p></span>
+                                                <span><h4><Translate>price</Translate>: </h4> <p>{formatMoney(price-discount)}</p> </span>
+                                                <span><h4><Translate>quantity</Translate>:</h4> <p>{quantity}</p></span>
+                                                <span><h4><Translate>date</Translate>: </h4> <p>{orderDate.split('T')[0]}</p> </span>
                                                 {
                                                     status==="pending"?(
-                                                        <button type="button" className="btn-feedback btn-pending">Pending</button>
+                                                        <button type="button" className="btn-feedback btn-pending"><Translate>pending</Translate></button>
                                                     ):(
-                                                        <button type="button" className="btn-feedback" onClick={()=>handleFeedbackClick(product)}>Feedback</button>
+                                                        <button type="button" className="btn-feedback" onClick={()=>handleFeedbackClick(product)}><Translate>feedback</Translate></button>
                                                     )
                                                 }
                                             </div>

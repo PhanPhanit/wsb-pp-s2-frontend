@@ -63,6 +63,23 @@
     border: 2px solid var(--color-dash-input);
     border-radius: 5px;
 }
+.dash-form-wrapper .body .input-wrapper .frm-control .input-control{
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.dash-form-wrapper .body .input-wrapper .frm-control .input-control input{
+    width: 100%;
+    padding-right: 30px;
+}
+.dash-form-wrapper .body .input-wrapper .frm-control .input-control .icon{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #A8A7A7;
+}
 .dash-form-wrapper .body .input-wrapper .frm-control textarea{
     border: none;
     outline: none;

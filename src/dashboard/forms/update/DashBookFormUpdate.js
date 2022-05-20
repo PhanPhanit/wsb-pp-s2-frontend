@@ -10,8 +10,11 @@ import axios from 'axios';
 import {toast} from 'react-toastify';
 import {BsFillPlusCircleFill} from 'react-icons/bs';
 import { productUrl } from '../../../UrlEndPoint';
+import {useLanguageContext} from '../../../context/language_context';
+import Translate, {translateText} from '../../../Translate';
 
 const DashBookFormUpdate = () => {
+    const {language} = useLanguageContext();
     const {closeFormUpdate} = useActionContext();
     const {
         categories,
@@ -184,25 +187,25 @@ const DashBookFormUpdate = () => {
     }, []);
 
   return (
-      <div className="w-100 h-100 overflow-y-scroll">
+      <div className={language==='kh'?"w-100 h-100 overflow-y-scroll font-khmer":"w-100 h-100 overflow-y-scroll"}>
         <form className="dash-form-wrapper box-center w-700">
             <div className="header">
-                <h2>Update Product</h2>
+                <h2><Translate>dash_update_product</Translate></h2>
                 <AiOutlineClose className="close-icon" onClick={closeFormUpdate} />
             </div>
             <div className="body">
                 <div className="input-wrapper">
                     <div className="frm-control">
-                        <label htmlFor="id">ID</label>
+                        <label htmlFor="id"><Translate>ID</Translate></label>
                         <input readOnly value={updateProductId} type="text" name="id" id="id" placeholder="Product ID" />
                     </div>
                     <div className="frm-control">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name"><Translate>name</Translate></label>
                         <input
                             type="text"
                             name="name"
                             id="name"
-                            placeholder="Name of category"
+                            placeholder={translateText(language, "dash_name_of_book")}
                             onChange={handleInputChange}
                             value={dataFormProduct.name}
                         />
@@ -210,23 +213,23 @@ const DashBookFormUpdate = () => {
 
                     <div className="d-flex gap-10">
                         <div className="frm-control">
-                            <label htmlFor="price">Price</label>
+                            <label htmlFor="price"><Translate>dash_price</Translate></label>
                             <input
                                 type="number"
                                 name="price"
                                 id="price"
-                                placeholder="Price"
+                                placeholder={translateText(language, "dash_price")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.price}
                             />
                         </div>
                         <div className="frm-control">
-                            <label htmlFor="discount">Discount</label>
+                            <label htmlFor="discount"><Translate>dash_discount</Translate></label>
                             <input
                                 type="number"
                                 name="discount"
                                 id="discount"
-                                placeholder="Discount"
+                                placeholder={translateText(language, "dash_discount")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.discount}
                             />
@@ -234,23 +237,23 @@ const DashBookFormUpdate = () => {
                     </div>
                     <div className="d-flex gap-10">
                         <div className="frm-control">
-                            <label htmlFor="author">Author</label>
+                            <label htmlFor="author"><Translate>dash_author</Translate></label>
                             <input
                                 type="text"
                                 name="author"
                                 id="author"
-                                placeholder="Author"
+                                placeholder={translateText(language, "dash_author")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.author}
                             />
                         </div>
                         <div className="frm-control">
-                            <label htmlFor="publisher">Publisher</label>
+                            <label htmlFor="publisher"><Translate>dash_publisher</Translate></label>
                             <input
                                 type="text"
                                 name="publisher"
                                 id="publisher"
-                                placeholder="Publisher"
+                                placeholder={translateText(language, "dash_publisher")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.publisher}
                             />
@@ -258,23 +261,23 @@ const DashBookFormUpdate = () => {
                     </div>
                     <div className="d-flex gap-10">
                         <div className="frm-control">
-                            <label htmlFor="genre">Genre</label>
+                            <label htmlFor="genre"><Translate>dash_genre</Translate></label>
                             <input
                                 type="text"
                                 name="genre"
                                 id="genre"
-                                placeholder="Genre"
+                                placeholder={translateText(language, "dash_genre")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.genre}
                             />
                         </div>
                         <div className="frm-control">
-                            <label htmlFor="language">Language</label>
+                            <label htmlFor="language"><Translate>dash_language</Translate></label>
                             <input
                                 type="text"
                                 name="language"
                                 id="language"
-                                placeholder="Language"
+                                placeholder={translateText(language, "dash_language")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.language}
                             />
@@ -283,23 +286,23 @@ const DashBookFormUpdate = () => {
 
                     <div className="d-flex gap-10">
                         <div className="frm-control">
-                            <label htmlFor="published">Published</label>
+                            <label htmlFor="published"><Translate>dash_published</Translate></label>
                             <input
                                 type="text"
                                 name="published"
                                 id="published"
-                                placeholder="Published"
+                                placeholder={translateText(language, "dash_published")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.published}
                             />
                         </div>
                         <div className="frm-control">
-                            <label htmlFor="country">Country</label>
+                            <label htmlFor="country"><Translate>dash_country</Translate></label>
                             <input
                                 type="text"
                                 name="country"
                                 id="country"
-                                placeholder="country"
+                                placeholder={translateText(language, "dash_country")}
                                 onChange={handleInputChange}
                                 value={dataFormProduct.country}
                             />
@@ -307,10 +310,10 @@ const DashBookFormUpdate = () => {
                     </div>
 
                     <div className="frm-control">
-                        <label htmlFor="category">Category</label>
+                        <label htmlFor="category"><Translate>dash_category</Translate></label>
                         <select name="category" id="category" value={dataFormProduct.category} onChange={handleInputChange}>
 
-                            <option value="">----- Select -----</option>
+                            <option value="">----- {translateText(language, "dash_select")} -----</option>
                             {
                                 categories.map((category, index)=>{
                                     const {_id: id, name} = category;
@@ -323,7 +326,7 @@ const DashBookFormUpdate = () => {
                     </div>
 
                     <div className="frm-control">
-                        <label htmlFor="isShow">Show</label>
+                        <label htmlFor="isShow"><Translate>dash_show</Translate></label>
                         <select name="isShow" id="isShow" onChange={handleInputChange} value={dataFormProduct.isShow}>
                             <option value="true">true</option>
                             <option value="false">false</option>
@@ -331,11 +334,11 @@ const DashBookFormUpdate = () => {
                     </div>
 
                     <div className="frm-control">
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description"><Translate>dash_description</Translate></label>
                         <textarea
                             name="description"
                             id="description"
-                            placeholder="Description"
+                            placeholder={translateText(language, "dash_description")}
                             cols="30"
                             rows="10"
                             onChange={handleInputChange}
@@ -344,7 +347,7 @@ const DashBookFormUpdate = () => {
                     </div>
                 </div>
                 <div className="upload-photo">
-                    <h3>File</h3>
+                    <h3><Translate>dash_photo</Translate></h3>
                     <div className="img-box-wrapper">
                         {
                             uploadImage.map(item=>{
@@ -376,9 +379,9 @@ const DashBookFormUpdate = () => {
                 </div>
             </div>
             <div className="footer">
-                <button type="button" className={createProductLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}>Cancel</button>
+                <button type="button" className={createProductLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}><Translate>cancel</Translate></button>
                 <button type="submit" className={createProductLoading?"btn-frm btn-save disable":"btn-frm btn-save"} onClick={handleSubmit}>
-                    {createProductLoading?<div className="button-spinner"></div>:"Save"}
+                    {createProductLoading?<div className="button-spinner"></div>:<Translate>save</Translate>}
                 </button>
             </div>
         </form>

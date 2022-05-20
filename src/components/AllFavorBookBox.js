@@ -6,6 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import {sortName, formatMoney, numberWithCommas} from '../utils/Tools';
 import {useUserContext} from '../context/user_context';
 import {useCartContext} from '../context/cart_context';
+import Translate from '../Translate';
 
 const AllFavorBookBox = (props) => {
     const {myUser} = useUserContext();
@@ -22,7 +23,7 @@ const AllFavorBookBox = (props) => {
         image
     } = props;
     return (
-        <div className="favor-box font-poppin">
+        <div className="favor-box font-khmer">
                 <Link to={`/viewbook/${productId}`}>
                     <div className="img-box">
                         <img src={image[0]} alt={name} />
@@ -55,11 +56,11 @@ const AllFavorBookBox = (props) => {
                         {
                             myUser? (
                                 <Link to="/cart" className="btn-add-cart" onClick={()=>addToCart(props)}>
-                                    <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                                    <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                                 </Link>
                             ):(
                                 <Link to="/signin" className="btn-add-cart">
-                                    <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                                    <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                                 </Link>
                             )
                         }

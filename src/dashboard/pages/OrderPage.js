@@ -5,8 +5,11 @@ import {FaSearch} from 'react-icons/fa';
 import { orderUrl } from '../../UrlEndPoint';
 import { useDashOrderContext } from '../contexts/dash_order_context';
 import { useActionContext } from '../contexts/action_context';
+import Translate, { translateText } from '../../Translate';
+import { useLanguageContext } from '../../context/language_context';
 
 const OrderPage = () => {
+  const {language} = useLanguageContext();
   const {openFormUpdate} = useActionContext();
   const {
     fetchOrder,
@@ -104,12 +107,12 @@ const OrderPage = () => {
   }
 
   return (
-    <div className="dash-order-wrapper">
+    <div className={language==='kh'?"dash-order-wrapper font-khmer":"dash-order-wrapper"}>
       <div className="order-search-filter">
         <form className="frm-search" onSubmit={handleSearch}>
           <input
             type="text"
-            placeholder="Search here..."
+            placeholder={translateText(language, "dash_search_here")}
             value={orderSearch}
             onChange={(e)=>setOrderSearch(e.target.value)}
           />
@@ -118,21 +121,21 @@ const OrderPage = () => {
           </button>
         </form>
         <select value={filterStatus} onChange={handleFilterStatusChange}>
-          <option value="all">All</option>
-          <option value="pending">pending</option>
-          <option value="success">success</option>
+          <option value="all">{translateText(language, "dash_all")}</option>
+          <option value="pending">{translateText(language, "dash_pending")}</option>
+          <option value="success">{translateText(language, "dash_success")}</option>
         </select>
       </div>
       <div className="order-table-wrapper">
         <table className="dash-tbl">
             <thead>
               <tr>
-                <th width="80">No.</th>
-                <th className="title">Name</th>
-                <th width="200">Order Date</th>
-                <th width="200">Phone Number</th>
-                <th width="80">Process</th>
-                <th width="80">Detail</th>
+                <th width="80"><Translate>dash_no</Translate></th>
+                <th className="title"><Translate>dash_name</Translate></th>
+                <th width="200"><Translate>dash_order_date</Translate></th>
+                <th width="200"><Translate>dash_phone_number</Translate></th>
+                <th width="80"><Translate>dash_process</Translate></th>
+                <th width="80"><Translate>dash_detail</Translate></th>
               </tr>
             </thead>
             <tbody>
@@ -146,9 +149,9 @@ const OrderPage = () => {
                       <td className="title">{userName}</td>
                       <td>{orderDate.split('T')[0]}</td>
                       <td>{phoneNumber}</td>
-                      <td className={status==="success"?"color-success":"red"}>{status}</td>
+                      <td className={status==="success"?"color-success":"red"}><Translate>{status}</Translate></td>
                       <td>
-                        <button type="button" className="btn-view-order" onClick={()=>handleViewOrderDetail(id)}>View</button>
+                        <button type="button" className="btn-view-order" onClick={()=>handleViewOrderDetail(id)}><Translate>dash_view</Translate></button>
                       </td>
                     </tr>
                   )

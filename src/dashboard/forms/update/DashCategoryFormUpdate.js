@@ -9,8 +9,11 @@ import { useDashCategoryContext } from '../../contexts/dash_category_context';
 import axios from 'axios';
 import { uploadPhotoCloud } from '../../../UrlEndPoint';
 import { toast } from 'react-toastify';
+import {useLanguageContext} from '../../../context/language_context';
+import Translate, {translateText} from '../../../Translate';
 
 const DashCategoryFormUpdate = () => {
+    const {language} = useLanguageContext();
     const {closeFormUpdate} = useActionContext();
     const {
         updateCategoryId,
@@ -85,30 +88,30 @@ const DashCategoryFormUpdate = () => {
     }
 
   return (
-    <form className="dash-form-wrapper w-600">
+    <form className={language==='kh'?"dash-form-wrapper w-600 font-khmer":"dash-form-wrapper w-600"}>
         <div className="header">
-            <h2>Update Category</h2>
+            <h2><Translate>dash_update_category</Translate></h2>
             <AiOutlineClose className="close-icon" onClick={closeFormUpdate} />
         </div>
         <div className="body">
             <div className="input-wrapper">
                 <div className="frm-control">
-                    <label htmlFor="name">ID</label>
+                    <label htmlFor="name"><Translate>ID</Translate></label>
                     <input readOnly value={updateCategoryId} type="text" name="name" id="name" placeholder="Category ID" />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name"><Translate>dash_name</Translate></label>
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Name of category"
+                        placeholder={translateText(language, "dash_name_of_category")}
                         onChange={handleInputChange}
                         value={dataFormCategory.name}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="isShow">Show</label>
+                    <label htmlFor="isShow"><Translate>dash_show</Translate></label>
                     <select name="isShow" id="isShow" onChange={handleInputChange} value={dataFormCategory.isShow}>
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -116,7 +119,7 @@ const DashCategoryFormUpdate = () => {
                 </div>
             </div>
             <div className="upload-photo">
-                <h3>File</h3>
+                <h3><Translate>dash_photo</Translate></h3>
                 <div className="img-box-wrapper">
                     <div className="img-box" style={{ backgroundImage: `url(${dataFormCategory.image || PhotoUpload})` }}>
                         {photoLoading && <img src={UploadLoading} alt="upload loading" className="upload-loading" />}
@@ -131,9 +134,9 @@ const DashCategoryFormUpdate = () => {
             </div>
         </div>
         <div className="footer">
-            <button type="button" className={updateCategoryLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}>Cancel</button>
+            <button type="button" className={updateCategoryLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}><Translate>cancel</Translate></button>
             <button type="submit" className={updateCategoryLoading?"btn-frm btn-save disable":"btn-frm btn-save"} onClick={handleSubmit}>
-                {updateCategoryLoading?<div className="button-spinner"></div>:"Save"}
+                {updateCategoryLoading?<div className="button-spinner"></div>:<Translate>save</Translate>}
             </button>
         </div>
     </form>

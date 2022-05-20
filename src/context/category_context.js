@@ -42,15 +42,11 @@ const CategoryProvider = ({children}) => {
         dispatch({type: SET_CATEGORY_ID, payload: id});
     }
 
-
-    useEffect(()=>{
-        fetchCategory();
-    }, []);
-
     return <CategoyContext.Provider value={{
         ...state,
         setCategoryExist,
-        setCategoryId
+        setCategoryId,
+        fetchCategory
     }}>{children}</CategoyContext.Provider>
 }
 

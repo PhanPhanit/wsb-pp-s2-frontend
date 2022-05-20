@@ -49,7 +49,7 @@ const DashBookContextProvider = ({children}) => {
         try {
             await axios.delete(`${productUrl}/${productId}`);
             dispatch({type: DELETE_PRODUCT, payload: productId});
-            toast.success("Category had been removed.");
+            toast.success("Book had been removed.");
         } catch (error) {
             console.log(error);
         }

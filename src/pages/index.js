@@ -7,6 +7,9 @@ import Error from './Error';
 import Signup from './Signup';
 import Signin from './Signin';
 import SuccessCheckout from './SuccessCheckout';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
+import SearchPage from './SearchPage';
 
 export {
     CartPage,
@@ -18,4 +21,7 @@ export {
     Signup,
     Signin,
     SuccessCheckout,
+    ForgotPassword,
+    ResetPassword,
+    SearchPage
 }

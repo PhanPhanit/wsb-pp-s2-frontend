@@ -12,8 +12,11 @@ import {useProductContext} from '../context/product_context';
 import {useUserContext} from '../context/user_context';
 import {useCartContext} from '../context/cart_context';
 import {formatMoney, numberWithCommas} from '../utils/Tools';
+import Translate from '../Translate';
+import { useLanguageContext } from '../context/language_context';
 
 const NewArrivalBox = () => {
+    const {language} = useLanguageContext();
     SwiperCore.use([Autoplay, Pagination]);
     const {myUser} = useUserContext();
     const {new_arrival: {
@@ -23,11 +26,11 @@ const NewArrivalBox = () => {
     }} = useProductContext();
     const {addToCart} = useCartContext();
     return (
-        <section className="section-white font-poppin">
+        <section className={language=='kh'?"section-white font-khmer":"section-white font-poppin"}>
             <div className="wrapper-global wrapper-arrive">
 
                 <div className="title-arrive">
-                    <h2 className="font-cat">New Arrival</h2>
+                    <h2 className="font-cat"><Translate>body_new_arrival</Translate></h2>
                 </div>
                 <Swiper
                     className="swiper-arrive font-khmer"
@@ -110,11 +113,11 @@ const NewArrivalBox = () => {
                                                 {
                                                     myUser? (
                                                         <Link to="/cart" className="btn-add-cart" onClick={()=>addToCart(item)}>
-                                                            <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                                                            <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                                                         </Link>
                                                     ):(
                                                         <Link to="/signin" className="btn-add-cart">
-                                                            <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                                                            <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                                                         </Link>
                                                     )
                                                 }

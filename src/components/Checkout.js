@@ -5,8 +5,11 @@ import {useCartContext} from '../context/cart_context';
 import {IoArrowBackSharp} from 'react-icons/io5';
 import { useOrderContext } from '../context/order_context';
 import {toast} from 'react-toastify';
+import Translate, { translateText } from '../Translate';
+import { useLanguageContext } from '../context/language_context';
 
 const Checkout = () => {
+    const {language} = useLanguageContext();
     const {
         paymentInfo: {
             phoneNumber,
@@ -53,37 +56,37 @@ const Checkout = () => {
     }
 
     return (
-        <section className="section-checkout">
+        <section className={language==='kh'?"section-checkout font-khmer":"section-checkout"}>
             <div className="checkout-wrapper">
                 <div className="header">
                     {
                         step===2 && <IoArrowBackSharp onClick={()=>setStep(1)} className="icon" />
                     }
-                    <h2>Payment</h2>
+                    <h2><Translate>payment</Translate></h2>
                 </div>
                 {
                     step===1?(
                         <div className="body">
                             <div className="body-title">
-                                <h3>Billing Details</h3>
+                                <h3><Translate>billing_details</Translate></h3>
                             </div>
                             <form className="frm-address">
                                 <div className="frm-control">
-                                    <label htmlFor="phonNumber">Phone number</label>
+                                    <label htmlFor="phonNumber"><Translate>phone_number</Translate></label>
                                     <input
                                         type="number"
                                         id="phoneNumber"
                                         name="phoneNumber"
                                         className="input-control"
-                                        placeholder="Your phone number"
+                                        placeholder={translateText(language, "your_phone_number")}
                                         value={phoneNumber}
                                         onChange={handleSetPaymentInfo}
                                     />
                                 </div>
                                 <div className="frm-control">
-                                    <label htmlFor="city">City</label>
+                                    <label htmlFor="city"><Translate>city</Translate></label>
                                     <select name="city" id="city" className="select-control" value={city} onChange={handleSetPaymentInfo}>
-                                        <option value="0">---- Please select your city ----</option>
+                                        <option value="0">---- {translateText(language, "please_select_your_city")} ----</option>
                                         <option value="Phnom Penh">Phnom Penh</option>
                                         <option value="Banteay Meanchey">Banteay Meanchey</option>
                                         <option value="Battambang">Battambang</option>
@@ -91,12 +94,12 @@ const Checkout = () => {
                                     </select>
                                 </div>
                                 <div className="frm-control">
-                                    <label htmlFor="address">Address</label>
+                                    <label htmlFor="address"><Translate>address</Translate></label>
                                     <input
                                         type="text"
                                         id="address"
                                         className="input-control"
-                                        placeholder="Your Address"
+                                        placeholder={translateText(language, "your_address")}
                                         name="address"
                                         value={address}
                                         onChange={handleSetPaymentInfo}
@@ -105,7 +108,7 @@ const Checkout = () => {
                             </form>
 
                             <div className="body-title">
-                                <h3>Payment Option</h3>
+                                <h3><Translate>payment_option</Translate></h3>
                             </div>
 
                             <div className="payment-option">
@@ -124,13 +127,13 @@ const Checkout = () => {
                                 </label>
                             </div>
                             <div className="button-wrapper">
-                                <button type="button" onClick={handleNextPage}>Next</button>
+                                <button type="button" onClick={handleNextPage}><Translate>next</Translate></button>
                             </div>
                         </div>
                     ):(
                         <div className="body">
                             <div className="cart-title">
-                                <h2>Enter Your Cart Detail</h2>
+                                <h2><Translate>enter_your_card_detail</Translate></h2>
                             </div>
                             {
                                 isCreditCheck && <StripeFormContainer />

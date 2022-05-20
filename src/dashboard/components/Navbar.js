@@ -9,9 +9,12 @@ import axios from 'axios';
 import {toast} from 'react-toastify';
 import { useActionContext } from '../contexts/action_context';
 import { useUserContext } from '../../context/user_context';
+import Translate from '../../Translate';
+import { useLanguageContext } from '../../context/language_context';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const {language} = useLanguageContext();
     const {removeUser, setLoading, myUser} = useUserContext();
     const {
         isUserShow,
@@ -42,8 +45,8 @@ const Navbar = () => {
             <Logo />
             <FaBars className="icon-bar" onClick={()=>setIsSidebarShow(!isSidebarShow)} />
         </div>
-        <div className="center">
-            <h2>{dashboardTitle}</h2>
+        <div className={language==='kh'?"center font-khmer":"center"}>
+            <h2><Translate>{dashboardTitle}</Translate></h2>
         </div>
         <div className="right">
             <div className="user">
@@ -53,9 +56,9 @@ const Navbar = () => {
                     <li className="header">
                         <h4>{myUser.email}</h4>
                     </li>
-                    <li className="footer">
+                    <li className={language==='kh'?"footer font-khmer":"footer"}>
                         <MdLogout className="logout-icon" onClick={handleLogout} />
-                        <span onClick={handleLogout}>Logout</span>
+                        <span onClick={handleLogout}><Translate>Logout</Translate></span>
                     </li>
                 </ul>
             </div>

@@ -6,7 +6,10 @@ import {useCategoryContext} from '../context/category_context';
 
 const CategorySection = () => {
     const param = useParams();
-    const {category} = useCategoryContext();
+    const {category, fetchCategory} = useCategoryContext();
+    React.useEffect(()=>{
+        fetchCategory();
+    }, []);
     return (
         <section className="wrapper-global section-cate-wrap font-poppin">
             {

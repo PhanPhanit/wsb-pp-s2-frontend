@@ -4,8 +4,11 @@ import '../../styles/dashFrm.css';
 import { useActionContext } from '../../contexts/action_context';
 import {toast} from 'react-toastify';
 import { useDashSlideContext } from '../../contexts/dash_slide_context';
+import {useLanguageContext} from '../../../context/language_context';
+import Translate, {translateText} from '../../../Translate';
 
 const DashSlideFormCreate = () => {
+    const {language} = useLanguageContext();
     const {closeFormCreate} = useActionContext();
     const {createSlide} = useDashSlideContext();
     const [createSlideLoading, setCreateSlideLoading] = useState(false);
@@ -48,49 +51,49 @@ const DashSlideFormCreate = () => {
         }
     }
   return (
-    <form className="dash-form-wrapper w-600">
+    <form className={language==='kh'?"dash-form-wrapper w-600 font-khmer":"dash-form-wrapper w-600"}>
         <div className="header">
-            <h2>Create New Slide</h2>
+            <h2><Translate>dash_create_new_slide</Translate></h2>
             <AiOutlineClose className="close-icon" onClick={closeFormCreate} />
         </div>
         <div className="body">
             <div className="input-wrapper">
                 <div className="frm-control">
-                    <label htmlFor="title">Title</label>
+                    <label htmlFor="title"><Translate>dash_title</Translate></label>
                     <input
                         type="text"
                         name="title"
                         id="title"
-                        placeholder="Slide title"
+                        placeholder={translateText(language, "dash_title")}
                         onChange={handleInputChange}
                         value={dataFormSlide.title}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="subtitle">Subtitle</label>
+                    <label htmlFor="subtitle"><Translate>dash_subtitle</Translate></label>
                     <textarea
                         name="subtitle"
                         id="subtitle"
                         cols="30"
                         rows="8"
-                        placeholder="Slide subtitle"
+                        placeholder={translateText(language, "dash_subtitle")}
                         onChange={handleInputChange}
                         value={dataFormSlide.subtitle}
                     ></textarea>
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="product">Product ID</label>
+                    <label htmlFor="product"><Translate>dash_product_id</Translate></label>
                     <input
                         type="text"
                         name="product"
                         id="product"
-                        placeholder="Product ID"
+                        placeholder={translateText(language, "dash_product_id")}
                         onChange={handleInputChange}
                         value={dataFormSlide.product}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="isShow">Show</label>
+                    <label htmlFor="isShow"><Translate>dash_show</Translate></label>
                     <select name="isShow" id="isShow" value={dataFormSlide.isShow} onChange={handleInputChange}>
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -99,9 +102,9 @@ const DashSlideFormCreate = () => {
             </div>
         </div>
         <div className="footer">
-            <button type="button" className={createSlideLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormCreate}>Cancel</button>
+            <button type="button" className={createSlideLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormCreate}><Translate>cancel</Translate></button>
             <button type="submit" className={createSlideLoading?"btn-frm btn-save disable":"btn-frm btn-save"} onClick={handleSubmit}>
-                {createSlideLoading?<div className="button-spinner"></div>:"Save"}
+                {createSlideLoading?<div className="button-spinner"></div>:<Translate>save</Translate>}
             </button>
         </div>
     </form>

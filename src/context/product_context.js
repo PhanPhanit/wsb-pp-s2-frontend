@@ -1,4 +1,4 @@
-import React, {useContext, useReducer, useEffect} from 'react';
+import React, {useContext, useReducer, useEffect, useState} from 'react';
 import axios from 'axios';
 import {useCategoryContext} from './category_context';
 import reducer from '../reducers/product_reducer';
@@ -60,6 +60,7 @@ const ProductContext = React.createContext();
 const ProductProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initailState);
     const {category_id} = useCategoryContext();
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchProductNewArrive = async () => {
         dispatch({type: NEW_ARRIVAL_SET_LOADING, payload: true})
@@ -155,6 +156,8 @@ const ProductProvider = ({children}) => {
 
     return <ProductContext.Provider value={{
         ...state,
+        searchQuery,
+        setSearchQuery,
         setNewArrivalPage,
         fetchSingleProduct,
         fetchSuggestionProduct,

@@ -1,4 +1,5 @@
 const BASE_URL = "/api/v1";
+
 // Respone cookie
 export const responseCookie = `${BASE_URL}/wsb-res-cookie`;
 // Login with social media
@@ -15,6 +16,8 @@ export const countAllUser = `${BASE_URL}/users/count-all-user`;
 export const updateUser = `${BASE_URL}/users/updateUser`;
 export const updateUserPassword = `${BASE_URL}/users/updateUserPassword`;
 export const userUrl = `${BASE_URL}/users`;
+export const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
+export const resetPasswordUrl = `${BASE_URL}/auth/reset-password`;
 // Slide
 export const getAllSlide = `${BASE_URL}/wsb-slide`;
 export const slideUrl = `${BASE_URL}/wsb-slide`;

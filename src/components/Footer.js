@@ -9,20 +9,24 @@ import {
   AiOutlineTwitter,
   AiFillCopyrightCircle,
 } from "react-icons/ai";
+import Translate from '../Translate';
+import { useTranslate } from "../Translate";
+import {useLanguageContext} from '../context/language_context';
 
 function Footer() {
+  const {language} = useLanguageContext();
   return (
-    <footer className="font-poppin" id="footer">
+    <footer className={language=='kh'?"font-khmer":"font-poppin"} id="footer">
       <div className="section1">
         <div className="contact-us">
-          <h3>Contact Us</h3>
-          <p>Send us a message</p>
+          <h3>{<Translate>Contact Us</Translate>}</h3>
+          <p>{<Translate>foot_send_us_a_message</Translate>}</p>
           <form>
             <div>
-              <input type="text" placeholder="Full name" />
+              <input type="text" placeholder={useTranslate("foot_full_name")} />
             </div>
             <div>
-              <input type="text" placeholder="Your email" />
+              <input type="text" placeholder={useTranslate("foot_your_email")} />
             </div>
             <div>
               <textarea
@@ -30,22 +34,22 @@ function Footer() {
                 id=""
                 cols="30"
                 rows="5"
-                placeholder="Your meesage"
+                placeholder={useTranslate("foot_your_message")}
               ></textarea>
             </div>
             <Link className="send-btn" to="">
-              Send
+              <Translate>foot_send</Translate>
             </Link>
           </form>
         </div>
         <div className="about-us">
-          <h3>About Us</h3>
-          <p>Wsbook is an E-commerce website which proide:</p>
+          <h3><Translate>foot_about_us</Translate></h3>
+          <p><Translate>foot_about_us_description</Translate></p>
           <ul>
-            <li>Quality</li>
-            <li>Reliability</li>
-            <li>Easy for payment</li>
-            <li>Fast delivery</li>
+            <li><Translate>foot_quantity</Translate></li>
+            <li><Translate>foot_reliability</Translate></li>
+            <li><Translate>foot_easy_for_payment</Translate></li>
+            <li><Translate>foot_fast_delivery</Translate></li>
           </ul>
         </div>
         <div className="logo">

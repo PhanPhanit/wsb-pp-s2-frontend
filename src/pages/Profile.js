@@ -3,23 +3,28 @@ import {FaUser} from 'react-icons/fa';
 import '../styles/profile.css'
 import {ProfileAccount, ProfileHistory} from '../components';
 import {useActionContext} from '../context/action_context';
+import { useUserContext } from '../context/user_context';
+import Translate from '../Translate';
+import { useLanguageContext } from '../context/language_context';
 
 function Profile() {
     const {isAccountOpen, isHistoryOpen, historyClick, accountSettingClick} = useActionContext();
+    const {myUser} = useUserContext();
+    const {language} = useLanguageContext();
     return (
-        <div id="profile">
+        <div id="profile" className={language==='kh'?"font-khmer":"font-poppin"}>
             <div className="wrapper-global profile-wrapper">
                 <div className='left'>
                     <div className="profile-info">
                         <div className="user">
                             <FaUser className='icon' />
                         </div>
-                        <h3>Phan Phanit</h3>
-                        <p>phanit12@gmail.com</p>
+                        <h3>{myUser.name}</h3>
+                        <p>{myUser.email}</p>
                     </div>
                     <div className="menu-wrapper">
-                        <button type="button" className={`${isAccountOpen?"account active":"account"}`} onClick={accountSettingClick}>Account Setting</button>
-                        <button type="button" className={`${isHistoryOpen?"History active":"History"}`} onClick={historyClick}>History</button>
+                        <button type="button" className={`${isAccountOpen?"account active font-khmer":"account font-khmer"}`} onClick={accountSettingClick}><Translate>account_setting</Translate></button>
+                        <button type="button" className={`${isHistoryOpen?"History active font-khmer":"History font-khmer"}`} onClick={historyClick}><Translate>history</Translate></button>
                     </div>
                 </div>
                 {

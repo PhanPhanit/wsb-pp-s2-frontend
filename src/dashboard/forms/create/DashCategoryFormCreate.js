@@ -8,8 +8,11 @@ import { useDashCategoryContext } from '../../contexts/dash_category_context';
 import { uploadPhotoCloud } from '../../../UrlEndPoint';
 import axios from 'axios';
 import {toast} from 'react-toastify';
+import {useLanguageContext} from '../../../context/language_context';
+import Translate, {translateText} from '../../../Translate';
 
 const DashCategoryFormCreate = () => {
+    const {language} = useLanguageContext();
     const {closeFormCreate} = useActionContext();
     const {createCategory} = useDashCategoryContext();
     const [dataFormCategory, setDataFormCategory] = useState({name: "", image: "", isShow: true});
@@ -68,26 +71,26 @@ const DashCategoryFormCreate = () => {
         }
     }
   return (
-    <form className="dash-form-wrapper w-600">
+    <form className={language==='kh'?"dash-form-wrapper w-600 font-khmer":"dash-form-wrapper w-600"}>
         <div className="header">
-            <h2>Create New Category</h2>
+            <h2><Translate>dash_create_new_category</Translate></h2>
             <AiOutlineClose className="close-icon" onClick={closeFormCreate} />
         </div>
         <div className="body">
             <div className="input-wrapper">
                 <div className="frm-control">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name"><Translate>dash_name</Translate></label>
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Name of category"
+                        placeholder={translateText(language, "dash_name_of_category")}
                         onChange={handleInputChange}
                         value={dataFormCategory.name}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="isShow">Show</label>
+                    <label htmlFor="isShow"><Translate>dash_show</Translate></label>
                     <select name="isShow" id="isShow" value={dataFormCategory.isShow} onChange={handleInputChange}>
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -95,7 +98,7 @@ const DashCategoryFormCreate = () => {
                 </div>
             </div>
             <div className="upload-photo">
-                <h3>File</h3>
+                <h3><Translate>dash_photo</Translate></h3>
                 <div className="img-box-wrapper">
                     <div className="img-box" style={{ backgroundImage: `url(${dataFormCategory.image || PhotoUpload})` }}>
                         {photoLoading && <img src={UploadLoading} alt="upload loading" className="upload-loading" />}
@@ -110,9 +113,9 @@ const DashCategoryFormCreate = () => {
             </div>
         </div>
         <div className="footer">
-            <button type="button" className={createCategoryLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormCreate}>Cancel</button>
+            <button type="button" className={createCategoryLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormCreate}><Translate>cancel</Translate></button>
             <button type="submit" className={createCategoryLoading?"btn-frm btn-save disable":"btn-frm btn-save"} onClick={handleSubmit}>
-                {createCategoryLoading?<div className="button-spinner"></div>:"Save"}
+                {createCategoryLoading?<div className="button-spinner"></div>:<Translate>save</Translate>}
             </button>
         </div>
     </form>

@@ -48,7 +48,7 @@ export const SidebarData = [
     },
     {
         id: 7,
-        text: "Users",
+        text: "User",
         path: "user",
         icon: <FaUserFriends className="icon" />
     }

@@ -22,3 +22,7 @@ export const SET_VIEW_ORDER_ID = "SET_VIEW_ORDER_ID";
 export const COMFIRM_ORDER = "COMFIRM_ORDER";
 // User action
 export const SET_USER = "SET_USER";
+export const CREATE_USER = "CREATE_USER";
+export const SET_UPDATE_USER_ID = "SET_UPDATE_USER_ID";
+export const UPDATE_USER = "UPDATE_USER";
+export const DELETE_USER = "DELETE_USER";

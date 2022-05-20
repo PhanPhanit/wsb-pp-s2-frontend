@@ -76,7 +76,7 @@ header .nav-center-wrapper .nav-center .nav-logo-search .frm-search input[type="
 }
 header .nav-center-wrapper .nav-center .nav-logo-search .frm-search button[type="submit"]{
     position: absolute;
-    top: 50%;
+    top: 55%;
     right: 10px;
     transform: translateY(-50%);
     border: none;
@@ -84,6 +84,7 @@ header .nav-center-wrapper .nav-center .nav-logo-search .frm-search button[type=
     background: none;
     font-size: 24px;
     color: #afafaf;
+    cursor: pointer;
 }
 
 /* text center */

@@ -10,8 +10,11 @@ import { useActionContext } from '../contexts/action_context';
 import { productUrl } from '../../UrlEndPoint';
 import { categoryUrl } from '../../UrlEndPoint';
 import {formatMoney} from '../../utils/Tools';
+import Translate, { translateText } from '../../Translate';
+import { useLanguageContext } from '../../context/language_context';
 
 const BookPage = () => {
+  const {language} = useLanguageContext();
   const {openFormCreate, openFormUpdate} = useActionContext();
   const {
     fechProduct,
@@ -127,8 +130,9 @@ const BookPage = () => {
       <div className="search-create">
         <form className="frm-search" onSubmit={handleSearch}>
           <input
+            className={language==='kh'?"font-khmer":""}
             type="text"
-            placeholder="Search here..."
+            placeholder={translateText(language, "dash_search_here")}
             value={productSearch}
             onChange={e=>setProductSearch(e.target.value)}
           />
@@ -137,13 +141,13 @@ const BookPage = () => {
           </button>
         </form>
         <button className="btn-create" onClick={openFormCreate}>
-          <span>Create</span>
+          <span className={language==='kh'?"font-khmer":""}><Translate>dash_create</Translate></span>
           <AiOutlinePlus className="icon" />
         </button>
       </div>
       <div className="filter-book">
-        <select value={filterCategory} onChange={handleFilterCategoryChange}>
-          <option value="all">All</option>
+        <select value={filterCategory} onChange={handleFilterCategoryChange} className={language==='kh'?"font-khmer":""}>
+          <option value="all">{translateText(language, "dash_all")}</option>
           {
             categories.map((category, index)=>{
               const {_id: id, name} = category;
@@ -154,18 +158,18 @@ const BookPage = () => {
           }
         </select>
       </div>
-      <div className="book-table-wrapper">
+      <div className={language==='kh'?"book-table-wrapper font-khmer":"book-table-wrapper"}>
         <table className="dash-tbl">
           <thead>
             <tr>
-              <th width="80">No.</th>
-              <th className="title">Name</th>
-              <th width="80">Price</th>
-              <th width="80">Discount</th>
-              <th width="200">Photo</th>
-              <th width="80">Show</th>
-              <th width="80">Edit</th>
-              <th width="80">Delete</th>
+              <th width="80"><Translate>dash_no</Translate></th>
+              <th className="title"><Translate>dash_name</Translate></th>
+              <th width="80"><Translate>dash_price</Translate></th>
+              <th width="80"><Translate>dash_discount</Translate></th>
+              <th width="200"><Translate>dash_photo</Translate></th>
+              <th width="80"><Translate>dash_show</Translate></th>
+              <th width="80"><Translate>dash_edit</Translate></th>
+              <th width="80"><Translate>dash_delete</Translate></th>
             </tr>
           </thead>
           <tbody>

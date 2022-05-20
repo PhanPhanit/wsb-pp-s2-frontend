@@ -21,4 +21,16 @@
     font-size: 20px;
     border-radius: 10px;
     color: #ffffff;
+    font-size: 22px;
+}
+.checkout-success .checkout-btn-history{
+    background: var(--color-primary);
+    padding: 8px 15px;
+    font-size: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+    font-size: 18px;
+
 }

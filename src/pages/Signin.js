@@ -105,7 +105,7 @@ const Signin = () => {
                         <div className="frm-control remember-me">
                             <input type="checkbox" name="remember-me" id="remember-me" />
                             <label htmlFor="remember-me">Remember Me</label>
-                            <Link to="/" className="forget-pass">Forget password?</Link>
+                            <Link to="/forgot-password" className="forget-pass">Forgot password?</Link>
                         </div>
                         <div className="frm-control btn-container">
                             <button type="submit" className="btn-submit" style={{pointerEvents: loading?"none":"auto", opacity: loading?"0.6":"1"}}>

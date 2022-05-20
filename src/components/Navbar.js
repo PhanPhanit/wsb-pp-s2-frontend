@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import {AiOutlineSearch, AiOutlineShopping} from 'react-icons/ai';
 import {FiMenu} from 'react-icons/fi';
@@ -12,8 +12,20 @@ import {useCartContext} from '../context/cart_context';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import Logo from './Logo';
+import {useLanguageContext} from '../context/language_context';
+import Translate, {useTranslate} from '../Translate';
+import { useProductContext } from '../context/product_context';
 
 function Navbar() {
+    const {
+        language,
+        setLanguageEn,
+        setLanguageKh
+    } = useLanguageContext();
+    const {
+        searchQuery,
+        setSearchQuery
+    } = useProductContext();
     const navigate = useNavigate();
     const {myUser, removeUser, setLoading} = useUserContext();
     const {openSidebar, accountSettingClick, historyClick} = useActionContext();
@@ -59,14 +71,20 @@ function Navbar() {
             }); 
         }
     }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        navigate(`/search?search_query=${searchQuery}`);
+    }
+
     return (
         <header>
-            <div className="nav-center-wrapper font-poppin">
+            <div className="nav-center-wrapper font-khmer">
                 <div className="nav-center">
                     <div className="nav-logo-search">
                         <Logo />
-                        <form className="frm-search">
-                            <input type="text" placeholder="Explore..." />
+                        <form className="frm-search" onSubmit={handleSearch}>
+                            <input value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} type="text" className="font-khmer" placeholder={`${useTranslate("explore")}...`} />
                             <button type="submit">
                                 <AiOutlineSearch className="icon" />
                             </button>
@@ -75,7 +93,8 @@ function Navbar() {
                     <ul className="nav-text-center">
                         {
                             NavbarData.map(item=>{
-                                return <li key={item.id} onClick={()=>handleNavMenu(item.link)}>{item.title}</li>
+
+                                return <li key={item.id} onClick={()=>handleNavMenu(item.link)}><Translate>{item.title}</Translate></li>
                             })
                         }
                     </ul>
@@ -98,20 +117,20 @@ function Navbar() {
                                                 }
                                                 return (
                                                     <li key={item.id} onClick={()=>handleDropdownClick(item.link)}>
-                                                        {item.icon} <span>{item.title}</span>
+                                                        {item.icon} <span><Translate>{item.title}</Translate></span>
                                                     </li>
                                                 );
                                             }) 
                                             }
                                         </ul>
                                         <div className="footer">
-                                            <div className="footer-wrapper" onClick={()=>handleLogout()}><FaSignOutAlt className="icon" /> <span>Logout</span></div>
+                                            <div className="footer-wrapper" onClick={()=>handleLogout()}><FaSignOutAlt className="icon" /> <span><Translate>Logout</Translate></span></div>
                                         </div>
                                     </div>
                                 </div>
                             ):(
-                                <button className="nav-signin">
-                                    <Link to="/signin">Sign in</Link>
+                                <button className="nav-signin font-khmer">
+                                    <Link to="/signin"><Translate>signin</Translate></Link>
                                 </button>
                             )
                         }
@@ -139,7 +158,13 @@ function Navbar() {
                 </div>
             </div>
             <div className="nav-language">
-                <span>KH</span>
+                {
+                    language==='kh'?(
+                        <span onClick={setLanguageEn}>EN</span>
+                    ):(
+                        <span onClick={setLanguageKh}>KH</span>
+                    )
+                }
             </div>
         </header>
     )

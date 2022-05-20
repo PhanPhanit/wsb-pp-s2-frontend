@@ -7,6 +7,22 @@
     z-index: 100004;
     background: var(--color-white);
 }
+#signin-signup-section .alert-text{
+    font-size: 28px;
+    background-color: #ebebeb;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+#signin-signup-section .link-home{
+    background: var(--color-primary);
+    font-size: 18px;
+    padding: 8px 10px;
+    color: var(--color-white);
+    border-radius: 8px;
+}
+#signin-signup-section .link-home:hover{
+    background: #009579;
+}
 #signin-signup-section .line-top,
 #signin-signup-section .line-bottom{
     position: absolute;
@@ -179,8 +195,7 @@
 }
 #signin-signup-section .sign-wrapper .right .frm .frm-control .input .icon{
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 15px;
     right: 10px;
     cursor: pointer;
     font-size: 20px;
@@ -236,6 +251,10 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+#signin-signup-section .sign-wrapper .right .frm .btn-container .btn-submit.disable{
+    pointer-events: none;
+    opacity: 0.6;
 }
 #signin-signup-section .sign-wrapper .right .frm .btn-container .btn-submit:hover{
     background: #20884d;

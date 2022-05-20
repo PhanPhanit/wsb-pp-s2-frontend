@@ -1,6 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { CartPage, Category, Home, Profile, ViewBook, Error, Signup, Signin, SuccessCheckout } from "./pages";
+import {
+  CartPage,
+  Category,
+  Home,
+  Profile,
+  ViewBook,
+  Error,
+  Signup,
+  Signin,
+  SuccessCheckout,
+  ForgotPassword,
+  ResetPassword,
+  SearchPage
+} from "./pages";
 import { Navbar, Sidebar, Footer, Feedback, Checkout, SendToken, PrivateRoute } from "./components";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -43,6 +56,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/cart" element={
             <PrivateRoute>
               <CartPage />
@@ -58,6 +72,9 @@ function App() {
               <SuccessCheckout />
             </PrivateRoute>
           } />
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
 
           {/* start dashboard */}

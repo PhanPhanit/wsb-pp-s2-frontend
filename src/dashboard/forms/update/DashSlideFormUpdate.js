@@ -4,8 +4,11 @@ import '../../styles/dashFrm.css';
 import { useActionContext } from '../../contexts/action_context';
 import {toast} from 'react-toastify';
 import { useDashSlideContext } from '../../contexts/dash_slide_context';
+import {useLanguageContext} from '../../../context/language_context';
+import Translate, {translateText} from '../../../Translate';
 
 const DashSlideFormUpdate = () => {
+    const {language} = useLanguageContext();
     const {closeFormUpdate} = useActionContext();
     const {
         slides,
@@ -63,15 +66,15 @@ const DashSlideFormUpdate = () => {
     }
 
   return (
-    <form className="dash-form-wrapper w-600">
+    <form className={language==='kh'?"dash-form-wrapper w-600 font-khmer":"dash-form-wrapper w-600"}>
         <div className="header">
-            <h2>Update Slide</h2>
+            <h2><Translate>dash_update_slide</Translate></h2>
             <AiOutlineClose className="close-icon" onClick={closeFormUpdate} />
         </div>
         <div className="body">
             <div className="input-wrapper">
                 <div className="frm-control">
-                    <label htmlFor="id">ID</label>
+                    <label htmlFor="id"><Translate>ID</Translate></label>
                     <input
                         readOnly
                         type="text"
@@ -82,42 +85,42 @@ const DashSlideFormUpdate = () => {
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="title">Title</label>
+                    <label htmlFor="title"><Translate>dash_title</Translate></label>
                     <input
                         type="text"
                         name="title"
                         id="title"
-                        placeholder="Slide title"
+                        placeholder={translateText(language, "dash_title")}
                         onChange={handleInputChange}
                         value={dataFormSlide.title}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="subtitle">Subtitle</label>
+                    <label htmlFor="subtitle"><Translate>dash_subtitle</Translate></label>
                     <textarea
                         name="subtitle"
                         id="subtitle"
                         cols="30"
                         rows="8"
-                        placeholder="Slide subtitle"
+                        placeholder={translateText(language, "dash_subtitle")}
                         onChange={handleInputChange}
                         value={dataFormSlide.subtitle}
                     ></textarea>
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="product">Product ID</label>
+                    <label htmlFor="product"><Translate>dash_product_id</Translate></label>
                     <input
                         readOnly
                         type="text"
                         name="product"
                         id="product"
-                        placeholder="Product ID"
+                        placeholder={translateText(language, "dash_product_id")}
                         onChange={handleInputChange}
                         value={dataFormSlide.product}
                     />
                 </div>
                 <div className="frm-control">
-                    <label htmlFor="isShow">Show</label>
+                    <label htmlFor="isShow"><Translate>dash_show</Translate></label>
                     <select name="isShow" id="isShow" value={dataFormSlide.isShow} onChange={handleInputChange}>
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -126,9 +129,9 @@ const DashSlideFormUpdate = () => {
             </div>
         </div>
         <div className="footer">
-            <button type="button" className={updateSlideLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}>Cancel</button>
+            <button type="button" className={updateSlideLoading?"btn-frm btn-cancel disable":"btn-frm btn-cancel"} onClick={closeFormUpdate}><Translate>cancel</Translate></button>
             <button type="submit" className={updateSlideLoading?"btn-frm btn-save disable":"btn-frm btn-save"} onClick={handleSubmit}>
-                {updateSlideLoading?<div className="button-spinner"></div>:"Save"}
+                {updateSlideLoading?<div className="button-spinner"></div>:<Translate>save</Translate>}
             </button>
         </div>
     </form>

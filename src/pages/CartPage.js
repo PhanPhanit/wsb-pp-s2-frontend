@@ -8,7 +8,11 @@ import {
     formatMoney,
     sortName
 } from '../utils/Tools';
+import Translate from '../Translate';
+import { useLanguageContext } from '../context/language_context';
+
 function CartPage() {
+    const {language} = useLanguageContext();
     const {
         cart,
         subtotal,
@@ -24,15 +28,15 @@ function CartPage() {
     }, []);
 
     return (
-        <section className="cart-section">
+        <section className={language=='kh'?"cart-section font-khmer":"cart-section"}>
             <div className="wrapper-global">
-                <div className="cart-title font-cat">Your Cart</div>
+                <div className="cart-title font-cat"><Translate>cart_your_cart</Translate></div>
                 <div className="cart-container">
                     <div className="cart-des-title">
-                        <span>Item</span>
-                        <span>Price</span>
-                        <span>Quantity</span>
-                        <span>Subtotal</span>
+                        <span><Translate>cart_item</Translate></span>
+                        <span><Translate>cart_price</Translate></span>
+                        <span><Translate>cart_quantity</Translate></span>
+                        <span><Translate>cart_subtotal</Translate></span>
                         <span></span>
                     </div>
                     <hr />
@@ -40,12 +44,12 @@ function CartPage() {
                         {
                             cart_loading?(
                                 <div className="cart-wrapper">
-                                    <div class="cart-lds-ring"><div></div><div></div><div></div><div></div></div>
+                                    <div className="cart-lds-ring"><div></div><div></div><div></div><div></div></div>
                                 </div>
                             ):
                             cart.length===0?(
                                 <div className="cart-wrapper">
-                                    <h2>No item</h2>
+                                    <h2><Translate>cart_no_item</Translate></h2>
                                 </div>
                             ):
                             (
@@ -127,32 +131,32 @@ function CartPage() {
                     </div>
                     <hr />
                     <div className="btn-container">
-                        <Link to="/" className="btn-shopping">Continue Shopping</Link>
-                        <button className="btn-clear" type="button" onClick={clearCart}>Clear all items</button>
+                        <Link to="/" className="btn-shopping"><Translate>cart_continue_shopping</Translate></Link>
+                        <button className={language=='kh'?"btn-clear font-khmer":"btn-clear"} type="button" onClick={clearCart}><Translate>cart_clear_all_item</Translate></button>
                     </div>
                 </div>
                 <section className="summary-container">
                     <div className="summary-box">
-                        <h2 className="title">Summary</h2>
+                        <h2 className="title"><Translate>cart_summary</Translate></h2>
                         <hr />
                         <div>
-                            <span>Subtotal:</span>
+                            <span><Translate>cart_subtotal</Translate>:</span>
                             <span>{formatMoney(subtotal)}</span>
                         </div>
                         <div>
-                            <span>Shipping Fee:</span>
+                            <span><Translate>cart_shipping_fee</Translate>:</span>
                             <span>{formatMoney(shipping_fee)}</span>
                         </div>
                         <hr />
                         <div>
-                            <span>Order Total:</span>
+                            <span><Translate>cart_order_total</Translate>:</span>
                             <span>{formatMoney(subtotal + shipping_fee)}</span>
                         </div>
 
 
 
 
-                        <Link to="/checkout" className="btn-checkout">Checkout</Link>
+                        <Link to="/checkout" className={cart.length===0?"btn-checkout disable":"btn-checkout"}><Translate>cart_checkout</Translate></Link>
                     </div>
                 </section>
             </div>

@@ -258,6 +258,10 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.cart-section .summary-container .summary-box .btn-checkout.disable{
+    pointer-events: none;
+    opacity: 0.6;
+}
 
 
 

@@ -4,8 +4,11 @@ import "../styles/feedback.css";
 import {useUserContext} from '../context/user_context';
 import {useActionContext} from '../context/action_context';
 import { useReviewContext } from '../context/review_context';
+import Translate, { translateText } from '../Translate';
+import { useLanguageContext } from '../context/language_context';
 
 const Feedback = () => {
+    const {language} = useLanguageContext();
     const [feedbackLoading, setFeedbackLoading] = useState(true);
     const [feedbackExist, setFeedbackExist] = useState(false);
     const {myUser:{userId}} = useUserContext();
@@ -53,28 +56,28 @@ const Feedback = () => {
     }
 
     return (
-        <div className="black-background show">
+        <div className={language==='kh'?"black-background show font-khmer":"black-background show"}>
             {
                 feedbackLoading?(
                     <div className="checking-wrapper">
-                        <p>Checking...</p>
+                        <p><Translate>checking</Translate>...</p>
                     </div>
                 ):feedbackExist?(
                     <div className="feedback-exist-wrapper">
-                        <p>You has been reivew this product!</p>
-                        <button className="btn-exist-close" onClick={handleCloseFeedback}>Close</button>
+                        <p><Translate>checking_feedback_text</Translate></p>
+                        <button className="btn-exist-close" onClick={handleCloseFeedback}><Translate>close</Translate></button>
                     </div>
                 ):(
                     <form className="frm">
                         <textarea
                             className="feedback-text font-khmer"
-                            placeholder="Your feedback..."
+                            placeholder={translateText(language, "your_feedback")}
                             value={comment}
                             onChange={(e)=>setReivew({rating, comment: e.target.value, product})}
                         ></textarea>
                         <div className="star-text">
-                            <span>Like this book?</span>
-                            <h4>rate now</h4>
+                            <span><Translate>like_this_book</Translate></span>
+                            <h4><Translate>rate_now</Translate></h4>
                             <ReactStars
                                 classNames="star-icon"
                                 value={rating}
@@ -83,8 +86,8 @@ const Feedback = () => {
                             />
                         </div>
                         <div className="btn-container">
-                            <button type="button" className="btn-close" onClick={handleCloseFeedback}>Close</button>
-                            <button type="button" onClick={handleSubmitFeedback} className={rating!==0&&comment&&product&&!reviewLoading?"btn-send":"btn-send btn-send-disable"}>{reviewLoading?"Loading...":"Send"}</button>
+                            <button type="button" className="btn-close" onClick={handleCloseFeedback}><Translate>close</Translate></button>
+                            <button type="button" onClick={handleSubmitFeedback} className={rating!==0&&comment&&product&&!reviewLoading?"btn-send":"btn-send btn-send-disable"}>{reviewLoading?<Translate>loading</Translate>:<Translate>send</Translate>}</button>
                         </div>
                     </form>
                 )

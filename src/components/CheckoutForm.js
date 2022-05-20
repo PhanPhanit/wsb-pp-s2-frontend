@@ -7,6 +7,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import { useOrderContext } from "../context/order_context";
+import Translate from "../Translate";
 
 export default function CheckoutForm() {
   const {subtotal, shipping_fee, cart, clearCart} = useCartContext();
@@ -126,10 +127,10 @@ export default function CheckoutForm() {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <span className="total-price">Your total is {formatMoney(subtotal+shipping_fee)}</span>
+      <span className="total-price"><Translate>your_total_is</Translate> {formatMoney(subtotal+shipping_fee)}</span>
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? <div className="spinner" id="spinner"></div> : <Translate>pay_now</Translate>}
         </span>
       </button>
       {/* Show any error or success messages */}

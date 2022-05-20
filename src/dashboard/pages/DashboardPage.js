@@ -6,8 +6,11 @@ import '../styles/dashboardPage.css';
 import ChartComponent from '../charts/Column2d';
 import { useDashboardContext } from '../contexts/dashboard_context';
 import { numberWithCommas, formatMoney } from '../../utils/Tools';
+import Translate, { translateText } from '../../Translate';
+import { useLanguageContext } from '../../context/language_context';
 
 const DashboardPage = () => {
+  const {language} = useLanguageContext();
   const [dashboardPageLoading, setDashboardPageLoading] = useState(true);
   const {
     DashboardfetchAll,
@@ -43,31 +46,31 @@ const DashboardPage = () => {
         <div className="single-box">
           <h3>{numberWithCommas(totalOrder)}</h3>
           <div>
-            <span>Total Order</span>
+            <span className={language==='kh'?"font-khmer":""}><Translate>dash_total_order</Translate></span>
             <GrCart className="icon" />
           </div>
         </div>
         <div className="single-box">
           <h3>{formatMoney(totalPrice)}</h3>
           <div>
-            <span>Total Price</span>
+            <span className={language==='kh'?"font-khmer":""}><Translate>dash_total_price</Translate></span>
             <RiMoneyDollarCircleLine className="icon" />
           </div>
         </div>
         <div className="single-box">
           <h3>{numberWithCommas(totalUser)}</h3>
           <div>
-            <span>Total User</span>
+            <span className={language==='kh'?"font-khmer":""}><Translate>dash_total_user</Translate></span>
             <FaRegUser className="icon" />
           </div>
         </div>
       </div>
       <div className="chart-wrapper">
         <div className="single-chart">
-          <ChartComponent data={mostSold} caption="Most Sold" xAxisName="Product" yAxisName="Sold" />
+          <ChartComponent data={mostSold} caption={translateText(language, "dash_most_sold")} xAxisName={translateText(language, "dash_product")} yAxisName={translateText(language, "dash_sold")} />
         </div>
         <div className="single-chart">
-          <ChartComponent data={mostView} caption="Most View" xAxisName="Product" yAxisName="View" />
+          <ChartComponent data={mostView} caption={translateText(language, "dash_most_view")} xAxisName={translateText(language, "dash_product")} yAxisName={translateText(language, "dash_view")} />
         </div>
       </div>
     </div>

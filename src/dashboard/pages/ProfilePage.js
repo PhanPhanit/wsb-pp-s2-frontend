@@ -5,8 +5,11 @@ import {FaEyeSlash, FaEye} from 'react-icons/fa';
 import '../styles/dashProfilePage.css';
 import {useUserContext} from '../../context/user_context';
 import { toast } from 'react-toastify';
+import {useLanguageContext} from '../../context/language_context';
+import Translate, { translateText } from '../../Translate';
 
 const ProfilePage = () => {
+  const {language} = useLanguageContext();
   const {
     myUser,
     updateUser,
@@ -131,14 +134,14 @@ const ProfilePage = () => {
 
   if(myUser.facebookId || myUser.googleId){
     return (
-      <div className="dash-pro-wrapper">
+      <div className={language==='kh'?"dash-pro-wrapper font-khmer":"dash-pro-wrapper"}>
         <div className="title">
-          <h2>Account Information</h2>
+          <h2><Translate>dash_profile_title</Translate></h2>
         </div>
         <div className="pro-body">
-          <h2>Username</h2>
+          <h2><Translate>dash_username</Translate></h2>
           <form className="single-edit">
-            <label>Name</label>
+            <label><Translate>dash_name</Translate></label>
             <input
               type="text"
               className={isNameEdit?"disable":""}
@@ -147,9 +150,9 @@ const ProfilePage = () => {
               onChange={handleInputChange}
             />
           </form>
-          <h2>Email</h2>
+          <h2><Translate>email</Translate></h2>
           <form className="single-edit">
-            <label>Email</label>
+            <label><Translate>email</Translate></label>
             <input
               type="text"
               className={isEmailEdit?"disable":""}
@@ -165,14 +168,14 @@ const ProfilePage = () => {
 
 
   return (
-    <div className="dash-pro-wrapper">
+    <div className={language==='kh'?"dash-pro-wrapper font-khmer":"dash-pro-wrapper"}>
       <div className="title">
-        <h2>Account Information</h2>
+        <h2><Translate>dash_profile_title</Translate></h2>
       </div>
       <div className="pro-body">
-        <h2>Username</h2>
+        <h2><Translate>dash_username</Translate></h2>
         <form className="single-edit">
-          <label>Name</label>
+          <label><Translate>dash_name</Translate></label>
           <input
             type="text"
             className={isNameEdit?"disable":""}
@@ -188,19 +191,19 @@ const ProfilePage = () => {
             ):(
               isNameEdit?(
                 <button type="button" className="btn-edit" onClick={handleEditNameClick}>
-                  <BiEdit className="icon" /> <span>edit</span>
+                  <BiEdit className="icon" /> <span><Translate>dash_edit</Translate></span>
                 </button>
               ):(    
                 <button type="button" className="btn-save" onClick={handleUpdateName}>
-                  <FiSave className="icon" /> <span>Save</span>
+                  <FiSave className="icon" /> <span><Translate>save</Translate></span>
                 </button>
               )
             )
           }
         </form>
-        <h2>Email</h2>
+        <h2><Translate>email</Translate></h2>
         <form className="single-edit">
-          <label>Email</label>
+          <label><Translate>email</Translate></label>
           <input
             type="text"
             className={isEmailEdit?"disable":""}
@@ -216,24 +219,24 @@ const ProfilePage = () => {
             ):(
               isEmailEdit?(
                 <button type="button" className="btn-edit" onClick={handleEditEmailClick}>
-                  <BiEdit className="icon" /> <span>edit</span>
+                  <BiEdit className="icon" /> <span><Translate>dash_edit</Translate></span>
                 </button>
               ):(
                 <button type="button" className="btn-save" onClick={handleUpdateEmail}>
-                  <FiSave className="icon" /> <span>Save</span>
+                  <FiSave className="icon" /> <span><Translate>save</Translate></span>
                 </button>
               )
             )
           }
         </form>
-        <h2>Change Password</h2>
+        <h2><Translate>dash_change_password</Translate></h2>
         <form className="frm-password" onSubmit={handleFormPasswordSubmit}>
           <div className="frm-control">
-            <label>Current Password</label>
+            <label><Translate>dash_current_password</Translate></label>
             <div className="input-control">
               <input
                 type={isCurrentPasswordShow?"text":"password"}
-                placeholder="Your curren password"
+                placeholder={translateText(language, "dash_your_current_password")}
                 name="oldPassword"
                 value={changePasswordData.oldPassword}
                 onChange={handleInputPasswordChange}
@@ -248,11 +251,11 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="frm-control">
-            <label>New Password</label>
+            <label><Translate>dash_new_password</Translate></label>
             <div className="input-control">
               <input
                 type={isNewPasswordShow?"text":"password"}
-                placeholder="New password"
+                placeholder={translateText(language, "dash_new_password")}
                 name="newPassword"
                 value={changePasswordData.newPassword}
                 onChange={handleInputPasswordChange}
@@ -267,11 +270,11 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className="frm-control">
-            <label>Comfirm Password</label>
+            <label><Translate>dash_confirm_password</Translate></label>
             <div className="input-control">
               <input
                 type={isComfirmPasswordShow?"text":"password"}
-                placeholder="Comfirm password"
+                placeholder={translateText(language, "dash_confirm_password")}
                 name="comfirmPassword"
                 value={changePasswordData.comfirmPassword}
                 onChange={handleInputPasswordChange}
@@ -291,7 +294,7 @@ const ProfilePage = () => {
                 changePasswordLoading?(
                   <div className="button-spinner"></div>
                 ):(
-                  <span>Save</span>
+                  <span><Translate>save</Translate></span>
                 )
               }
             </button>
