@@ -10,9 +10,12 @@ import {
     numberWithCommas,
     formatMoney,
 } from '../utils/Tools';
+import Translate from '../Translate';
+import { useLanguageContext } from '../context/language_context';
 
 
 const ViewBookDetail = () => {
+    const {language: lang} = useLanguageContext();
     const {myUser} = useUserContext();
     const {single_product: {product}} = useProductContext();
     const {addToCart} = useCartContext();
@@ -82,18 +85,18 @@ const ViewBookDetail = () => {
                 </div>
                 {
                     myUser? (
-                        <Link to="/cart" className="btn-add-cart" onClick={()=>addToCart(product)}>
-                            <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                        <Link to="/cart" className={lang==='kh'?"btn-add-cart font-khmer":"btn-add-cart"} onClick={()=>addToCart(product)}>
+                            <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                         </Link>
                     ):(
-                        <Link to="/signin" className="btn-add-cart">
-                            <FaShoppingBag className="icon" /> <span>ADD TO CART</span>
+                        <Link to="/signin" className={lang==='kh'?"btn-add-cart font-khmer":"btn-add-cart"}>
+                            <FaShoppingBag className="icon" /> <span><Translate>add_to_cart</Translate></span>
                         </Link>
                     )
                 }
             </div>
-            <div className="description">
-                <h3>Description</h3>
+            <div className={lang==='kh'?"description font-khmer":"description"}>
+                <h3><Translate>description</Translate></h3>
                 <span>{description}</span>
             </div>
         </section>

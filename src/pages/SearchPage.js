@@ -54,6 +54,19 @@ const SearchPage = () => {
             </section>
         );
     }
+    if(products.length===0){
+        return (
+            <section className="wrapper-global h-full search-page">
+                <div className="search-keyword">
+                    <div className="title">
+                        <h2>Search: {query.get('search_query')}</h2>
+                    </div>
+                    <hr />
+                </div>
+                <h2 className="search-no-product">No Product.</h2>
+            </section>
+        );
+    }
   return (
     <section className="wrapper-global h-full search-page">
         <div className="search-keyword">
